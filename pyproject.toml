@@ -18,6 +18,10 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
+    "exchangelib",
+    "ics",
+    "msal",
+
 ]
 description = "A Python package for sending emails in Office 365 via an Azure app"
 dynamic = [
