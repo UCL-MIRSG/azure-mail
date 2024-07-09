@@ -1,27 +1,31 @@
-"""Create an email to send with an Azure app
-"""
+"""Create an email to send with an Azure app."""
+
 import atexit
+import datetime
 import os
+import pathlib
 
 import dateutil.parser
-import datetime
-import msal
-import pytz
 import exchangelib
 import ics
+import msal
+import pytz
 
 __all__ = [
     "create_email",
     "create_calendar_ics",
 ]
 
+
 def _check_or_set_up_cache() -> msal.SerializableTokenCache:
-    """Set up MSAL token cache and load existing token"""
+    """Set up MSAL token cache and load existing token."""
     cache = msal.SerializableTokenCache()
-    if os.path.exists("my_cache.bin"):
-        cache.deserialize(open("my_cache.bin").read())
+    path = pathlib.Path("my_cache.bin")
+    if path.exists():
+        with path.open() as f:
+            cache.deserialize(f.read())
     atexit.register(
-        lambda: open("my_cache.bin", "w").write(cache.serialize())
+        lambda: path.open("w").write(cache.serialize())
         # Hint: The following optional line persists only when state changed
         if cache.has_state_changed
         else None
@@ -30,7 +34,7 @@ def _check_or_set_up_cache() -> msal.SerializableTokenCache:
 
 
 def _get_app_access_token() -> dict:
-    """Acquire an access token for the Azure app"""
+    """Acquire an access token for the Azure app."""
     authority = "https://login.microsoftonline.com/" + os.environ["TENANT_ID"]
     global_token_cache = _check_or_set_up_cache()
     app = msal.ClientApplication(
@@ -51,16 +55,15 @@ def _get_app_access_token() -> dict:
         )
 
     if "access_token" not in result:
-        raise RuntimeError(
-            "Access token could not be acquired", result["error_description"]
-        )
+        message = f"Access token could not be acquired {result['error_description']}"
+        raise RuntimeError(message)
 
     return result
 
 
 def _setup_email_account(
-        access_token: dict,
-    ) -> exchangelib.Account:
+    access_token: dict,
+) -> exchangelib.Account:
     """Use access token to configure Exchange server user account."""
     creds = exchangelib.OAuth2AuthorizationCodeCredentials(access_token=access_token)
     conf = exchangelib.Configuration(
@@ -76,12 +79,12 @@ def _setup_email_account(
 
 
 def create_email(
-        recipients: list[str],
-        body: exchangelib.HTMLBody,
-        subject: str,
-        attachments: list[exchangelib.FileAttachment],
-    ):
-    """Create an email to send to a list of users as bcc"""
+    recipients: list[str],
+    body: exchangelib.HTMLBody,
+    subject: str,
+    attachments: list[exchangelib.FileAttachment],
+) -> exchangelib.Message:
+    """Create an email to send to a list of users as bcc."""
     access_token = _get_app_access_token()
     account = _setup_email_account(
         access_token=access_token,
@@ -104,26 +107,25 @@ def create_email(
     return message
 
 
-def create_calendar_ics(
-        subject: str,
-        description: str,
-        date: str,
-        start_hour: int,
-        start_minute: int = 0,
-        duration_hours: int = 1,
-        duration_minutes: int = 0,
-        timezone: str = "Europe/London",
-    ) -> exchangelib.FileAttachment:
-    """Create an ICS calendar file for attaching in an email
-    """
+def create_calendar_ics(  # noqa: PLR0913
+    subject: str,
+    description: str,
+    date: str,
+    start_hour: int,
+    start_minute: int = 0,
+    duration_hours: int = 1,
+    duration_minutes: int = 0,
+    timezone: str = "Europe/London",
+) -> exchangelib.FileAttachment:
+    """Create an ICS calendar file for attaching in an email."""
     date_time = dateutil.parser.parse(date)
     time_start = date_time + datetime.timedelta(
         hours=start_hour,
         minutes=start_hour,
     )
     time_end = date_time + datetime.timedelta(
-        hours=start_hour+duration_hours,
-        minutes=start_minute+duration_minutes,
+        hours=start_hour + duration_hours,
+        minutes=start_minute + duration_minutes,
     )
 
     tz = pytz.timezone(timezone)
@@ -139,9 +141,7 @@ def create_calendar_ics(
     calendar = ics.Calendar()
     calendar.events.add(event)
 
-    attachment = exchangelib.FileAttachment(
+    return exchangelib.FileAttachment(
         name=f"{subject}.ics",
         content=bytes(calendar.serialize(), "UTF-8"),
     )
-
-    return attachment
