@@ -530,7 +530,7 @@
 
     <div class="doc doc-contents ">
 
-      <p>Create an email to send with an Azure app</p>
+      <p>Create an email to send with an Azure app.</p>
 
 
 
@@ -555,14 +555,11 @@
 
     <div class="doc doc-contents ">
 
-      <p>Create an ICS calendar file for attaching in an email</p>
+      <p>Create an ICS calendar file for attaching in an email.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/azure_mail/main.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">107</span>
-<span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">110</span>
 <span class="normal">111</span>
 <span class="normal">112</span>
 <span class="normal">113</span>
@@ -599,26 +596,25 @@
 <span class="normal">144</span>
 <span class="normal">145</span>
 <span class="normal">146</span>
-<span class="normal">147</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">create_calendar_ics</span><span class="p">(</span>
-        <span class="n">subject</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">date</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">start_hour</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="n">start_minute</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="n">duration_hours</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">duration_minutes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="n">timezone</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Europe/London&quot;</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">exchangelib</span><span class="o">.</span><span class="n">FileAttachment</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create an ICS calendar file for attaching in an email</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="normal">147</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">create_calendar_ics</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
+    <span class="n">subject</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">date</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">start_hour</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">start_minute</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">duration_hours</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">duration_minutes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">timezone</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Europe/London&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">exchangelib</span><span class="o">.</span><span class="n">FileAttachment</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create an ICS calendar file for attaching in an email.&quot;&quot;&quot;</span>
     <span class="n">date_time</span> <span class="o">=</span> <span class="n">dateutil</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
     <span class="n">time_start</span> <span class="o">=</span> <span class="n">date_time</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span>
         <span class="n">hours</span><span class="o">=</span><span class="n">start_hour</span><span class="p">,</span>
         <span class="n">minutes</span><span class="o">=</span><span class="n">start_hour</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">time_end</span> <span class="o">=</span> <span class="n">date_time</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span>
-        <span class="n">hours</span><span class="o">=</span><span class="n">start_hour</span><span class="o">+</span><span class="n">duration_hours</span><span class="p">,</span>
-        <span class="n">minutes</span><span class="o">=</span><span class="n">start_minute</span><span class="o">+</span><span class="n">duration_minutes</span><span class="p">,</span>
+        <span class="n">hours</span><span class="o">=</span><span class="n">start_hour</span> <span class="o">+</span> <span class="n">duration_hours</span><span class="p">,</span>
+        <span class="n">minutes</span><span class="o">=</span><span class="n">start_minute</span> <span class="o">+</span> <span class="n">duration_minutes</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">tz</span> <span class="o">=</span> <span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="n">timezone</span><span class="p">)</span>
@@ -634,12 +630,10 @@
     <span class="n">calendar</span> <span class="o">=</span> <span class="n">ics</span><span class="o">.</span><span class="n">Calendar</span><span class="p">()</span>
     <span class="n">calendar</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 
-    <span class="n">attachment</span> <span class="o">=</span> <span class="n">exchangelib</span><span class="o">.</span><span class="n">FileAttachment</span><span class="p">(</span>
+    <span class="k">return</span> <span class="n">exchangelib</span><span class="o">.</span><span class="n">FileAttachment</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">subject</span><span class="si">}</span><span class="s2">.ics&quot;</span><span class="p">,</span>
         <span class="n">content</span><span class="o">=</span><span class="nb">bytes</span><span class="p">(</span><span class="n">calendar</span><span class="o">.</span><span class="n">serialize</span><span class="p">(),</span> <span class="s2">&quot;UTF-8&quot;</span><span class="p">),</span>
     <span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">attachment</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -657,14 +651,11 @@
 
     <div class="doc doc-contents ">
 
-      <p>Create an email to send to a list of users as bcc</p>
+      <p>Create an email to send to a list of users as bcc.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/azure_mail/main.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 78</span>
-<span class="normal"> 79</span>
-<span class="normal"> 80</span>
-<span class="normal"> 81</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 81</span>
 <span class="normal"> 82</span>
 <span class="normal"> 83</span>
 <span class="normal"> 84</span>
@@ -687,13 +678,16 @@
 <span class="normal">101</span>
 <span class="normal">102</span>
 <span class="normal">103</span>
-<span class="normal">104</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">create_email</span><span class="p">(</span>
-        <span class="n">recipients</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-        <span class="n">body</span><span class="p">:</span> <span class="n">exchangelib</span><span class="o">.</span><span class="n">HTMLBody</span><span class="p">,</span>
-        <span class="n">subject</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">attachments</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">exchangelib</span><span class="o">.</span><span class="n">FileAttachment</span><span class="p">],</span>
-    <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create an email to send to a list of users as bcc&quot;&quot;&quot;</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">create_email</span><span class="p">(</span>
+    <span class="n">recipients</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">body</span><span class="p">:</span> <span class="n">exchangelib</span><span class="o">.</span><span class="n">HTMLBody</span><span class="p">,</span>
+    <span class="n">subject</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">attachments</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">exchangelib</span><span class="o">.</span><span class="n">FileAttachment</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">exchangelib</span><span class="o">.</span><span class="n">Message</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create an email to send to a list of users as bcc.&quot;&quot;&quot;</span>
     <span class="n">access_token</span> <span class="o">=</span> <span class="n">_get_app_access_token</span><span class="p">()</span>
     <span class="n">account</span> <span class="o">=</span> <span class="n">_setup_email_account</span><span class="p">(</span>
         <span class="n">access_token</span><span class="o">=</span><span class="n">access_token</span><span class="p">,</span>
