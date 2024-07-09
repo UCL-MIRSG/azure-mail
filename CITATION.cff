@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: "Ator"
+    given-names: "MIRSG"
+    email: "mirsg.ator@ucl.ac.uk"
+repository-code: "https://github.com/UCL-MIRSG/azure-mail"
+title: "Azure Mail: A Python package for sending emails in Office 365 via an Azure app"
+license: "MIT"
