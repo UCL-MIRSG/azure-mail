@@ -121,6 +121,15 @@ and then install in editable mode by running
 python -m pip install -e .
 ```
 
+### Overview
+
+The `ClientApplication` from python `msal` library is used to connect to
+an app installed in Microsoft Azure with the relevant permissions. An access
+token is acquired through `acquire_token_by_username_password` firstly and then the
+access token is cached so `acquire_token_silent` to be used in future uses of this package.
+This provides the necessary credentials and configuration to access the UCL account from which
+the emails are sent.
+
 ### Running Tests
 
 <!-- How to run tests on your local system. -->
