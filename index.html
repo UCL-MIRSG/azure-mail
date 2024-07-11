@@ -381,9 +381,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#running-locally" class="md-nav__link">
+  <a href="#azure-app-set-up" class="md-nav__link">
     <span class="md-ellipsis">
-      Running Locally
+      Azure App Set-up
     </span>
   </a>
   
@@ -418,21 +418,6 @@
       Roadmap
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Roadmap">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#azure-app-set-up" class="md-nav__link">
-    <span class="md-ellipsis">
-      Azure App Set-up
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -581,9 +566,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#running-locally" class="md-nav__link">
+  <a href="#azure-app-set-up" class="md-nav__link">
     <span class="md-ellipsis">
-      Running Locally
+      Azure App Set-up
     </span>
   </a>
   
@@ -618,21 +603,6 @@
       Roadmap
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Roadmap">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#azure-app-set-up" class="md-nav__link">
-    <span class="md-ellipsis">
-      Azure App Set-up
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -716,8 +686,27 @@ environment run</p>
 <p>and then install in editable mode by running</p>
 <pre><code class="language-sh">pip install -e .
 </code></pre>
-<h3 id="running-locally">Running Locally</h3>
-<p>How to run the application on your local system.</p>
+<h3 id="azure-app-set-up">Azure App Set-up</h3>
+<p>Before being able to send emails, you need to create an app in
+<a href="https://ecederstrand.github.io/exchangelib/#impersonation-oauth-on-office-365">Azure</a>
+with the necessary permissions to send emails on behalf of a user.</p>
+<p>The credentials for the app should be stored in a <code>.env</code> or <code>.envrc</code> file in the root directory of the project:</p>
+<ul>
+<li>CLIENT_ID: ID of the app created in Azure</li>
+<li>TENANT_ID:
+  <a href="https://learn.microsoft.com/en-us/entra/fundamentals/how-to-find-tenant">ID of the organisation</a>
+  in Azure</li>
+<li>USERNAME: username@ucl.ac.uk <!-- markdownlint-disable-line MD033 --></li>
+<li>ACCOUNT: username@ucl.ac.uk <!-- markdownlint-disable-line MD033 --></li>
+<li>SCOPE: <a href="https://outlook.office365.com/.default">https://outlook.office365.com/.default</a></li>
+<li>AUTHOR: For shared mailboxes</li>
+<li>SERVER: outlook.office365.com</li>
+</ul>
+<p>The <code>ClientApplication</code> from python <code>msal</code> library is used to connect to
+an app installed in Microsoft Azure with the relevant permissions. An access
+token is acquired through <code>acquire_token_by_username_password</code> firstly and then the access token is cached so <code>acquire_token_silent</code> to be used in future uses of this package. This provides
+the necessary credentials and configuration to access the UCL account from which
+the emails are sent.</p>
 <h3 id="running-tests">Running Tests</h3>
 <!-- How to run tests on your local system. -->
 
@@ -746,27 +735,6 @@ environment with the optional <code>docs</code> dependencies installed, run</p>
 <li class="task-list-item"><input type="checkbox" disabled/> Alpha Release</li>
 <li class="task-list-item"><input type="checkbox" disabled/> Feature-Complete Release</li>
 </ul>
-<h3 id="azure-app-set-up">Azure App Set-up</h3>
-<p>Before being able to send emails, you need to create an app in
-<a href="https://ecederstrand.github.io/exchangelib/#impersonation-oauth-on-office-365">Azure</a>
-with the necessary permissions to send emails on behalf of a user.</p>
-<p>The credentials for the app should be stored in a <code>.env</code> or <code>.envrc</code> file in the root directory of the project:</p>
-<ul>
-<li>CLIENT_ID: ID of the app created in Azure</li>
-<li>TENANT_ID:
-  <a href="https://learn.microsoft.com/en-us/entra/fundamentals/how-to-find-tenant">ID of the organisation</a>
-  in Azure</li>
-<li>USERNAME: username@ucl.ac.uk <!-- markdownlint-disable-line MD033 --></li>
-<li>ACCOUNT: username@ucl.ac.uk <!-- markdownlint-disable-line MD033 --></li>
-<li>SCOPE: <a href="https://outlook.office365.com/.default">https://outlook.office365.com/.default</a></li>
-<li>AUTHOR: For shared mailboxes</li>
-<li>SERVER: outlook.office365.com</li>
-</ul>
-<p>The <code>ClientApplication</code> from python <code>msal</code> library is used to connect to
-an app installed in Microsoft Azure with the relevant permissions. An access
-token is acquired through <code>acquire_token_by_username_password</code> firstly and then the access token is cached so <code>acquire_token_silent</code> to be used in future uses of this package. This provides
-the necessary credentials and configuration to access the UCL account from which
-the emails are sent.</p>
 <!-- END INCLUDE -->
 
 
