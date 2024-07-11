@@ -37,7 +37,7 @@ College London.
 
 ### Project Team
 
-MIRSG
+[MIRSG]()
 
 <!-- TODO: how do we have an array of collaborators ? -->
 
@@ -46,21 +46,54 @@ MIRSG
 Centre for Advanced Research Computing, University College London
 ([arc.collaborations@ucl.ac.uk](mailto:arc.collaborations@ucl.ac.uk))
 
-## Built With
-
-<!-- TODO: can cookiecutter make a list of frameworks? -->
-
-- [Framework 1](https://something.com)
-- [Framework 2](https://something.com)
-- [Framework 3](https://something.com)
-
 ## Getting Started
 
-### Prerequisites
+## Pre-requisites
 
-<!-- Any tools or versions of languages needed to run code. For example specific Python or Node versions. Minimum hardware requirements also go here. -->
+1. create an app in Azure for sending emails
 
-`azure-mail` requires Python 3.11&ndash;3.12.
+Before using `azure-mail`, you will need to create an app in Azure
+with the [necessary permissions](https://ecederstrand.github.io/exchangelib/#impersonation-oauth-on-office-365) to send emails on behalf of a user.
+
+2. store the necessary credentials in a `.envrc` file
+
+The credentials should be stored in a `.envrc` file in the root directory of the project. The file should container the following information:
+
+```shell
+# layout python
+export CLIENT_ID=
+export CLIENT_SECRET=
+export TENANT_ID=
+export ACCOUNT=
+export USERNAME=
+export USER_PASSWORD=
+export AUTHOR=
+export SCOPE=
+export SERVER=
+```
+
+Here's a brief explanation of each line above:
+
+- `layout python`: required for `direnv` to export the environment variables
+- `CLIENT_ID`: [ID of the app](https://learn.microsoft.com/en-us/entra/identity-platform/msal-client-application-configuration#client-id) created in Azure
+- `CLIENT_SECRET`: [secret](https://learn.microsoft.com/en-us/entra/identity-platform/msal-client-applications#secrets-and-their-importance-in-proving-identity) used by the app to authenticate to the email server
+- `TENANT_ID`:
+  [ID of the organisation](https://learn.microsoft.com/en-us/entra/fundamentals/how-to-find-tenant)
+  in Azure
+- `ACCOUNT` : account to send emails from (e.g. abcdef@ucl.ac.uk)
+- `USERNAME`: username of sender (if at UCL, your UCL ID e.g. abcdefg)
+- `USER_PASSWORD`: password of sender
+- `AUTHOR`: emails address to send email from. Can be different to `ACCOUNT` if, for example, sending from a shared mailbox
+- `SCOPE`: [scope](https://learn.microsoft.com/en-us/entra/identity-platform/scopes-oidc) of the account (e.g. https://outlook.office365.com/.default)
+- `SERVER`: server for [`exchanglib` configuration](https://ecederstrand.github.io/exchangelib/exchangelib/configuration.html#exchangelib.configuration.Configuration) (e.g. outlook.office365.com)
+
+3. [recommended] install and configure `direnv` to automatically export the credentials as environment variables
+
+[Install `direnv`](https://direnv.net/docs/installation.html) and then grant it permission to load your `.envrc` file:
+
+```bash
+direnv allow .
+```
 
 ### Installation
 
@@ -73,7 +106,7 @@ development version of `azure-mail` using `pip` in the currently active
 environment run
 
 ```sh
-pip install git+https://github.com/UCL-MIRSG/azure-mail.git
+python -m pip install git+https://github.com/UCL-MIRSG/azure-mail.git
 ```
 
 Alternatively create a local clone of the repository with
@@ -85,12 +118,8 @@ git clone https://github.com/UCL-MIRSG/azure-mail.git
 and then install in editable mode by running
 
 ```sh
-pip install -e .
+python -m pip install -e .
 ```
-
-### Running Locally
-
-How to run the application on your local system.
 
 ### Running Tests
 
@@ -128,10 +157,3 @@ environment with the optional `docs` dependencies installed, run
 ```sh
 mkdocs serve
 ```
-
-## Roadmap
-
-- [x] Initial Research
-- [ ] Minimum viable product <-- You are Here
-- [ ] Alpha Release
-- [ ] Feature-Complete Release
