@@ -37,7 +37,7 @@ College London.
 
 ### Project Team
 
-[MIRSG]()
+[MIRSG](https://www.ucl.ac.uk/advanced-research-computing/expertise/research-software-development/medical-imaging-research-software-group)
 
 <!-- TODO: how do we have an array of collaborators ? -->
 
