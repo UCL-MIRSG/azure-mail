@@ -88,9 +88,30 @@ and then install in editable mode by running
 pip install -e .
 ```
 
-### Running Locally
+### Azure App Set-up
 
-How to run the application on your local system.
+Before being able to send emails, you need to create an app in
+[Azure](https://ecederstrand.github.io/exchangelib/#impersonation-oauth-on-office-365)
+with the necessary permissions to send emails on behalf of a user.
+
+The credentials for the app should be stored in a `.env` or `.envrc` file in the root directory of the project:
+
+- CLIENT_ID: ID of the app created in Azure
+- TENANT_ID:
+  [ID of the organisation](https://learn.microsoft.com/en-us/entra/fundamentals/how-to-find-tenant)
+  in Azure
+- USERNAME: username@ucl.ac.uk <!-- markdownlint-disable-line MD033 -->
+- ACCOUNT: username@ucl.ac.uk <!-- markdownlint-disable-line MD033 -->
+- SCOPE: <https://outlook.office365.com/.default>
+- AUTHOR: For shared mailboxes
+- SERVER: outlook.office365.com
+
+The `ClientApplication` from python `msal` library is used to connect to
+an app installed in Microsoft Azure with the relevant permissions. An access
+token is acquired through `acquire_token_by_username_password` firstly and then the access token is cached so `acquire_token_silent` to be used in future uses of this package. This provides
+the necessary credentials and configuration to access the UCL account from which
+the emails are sent.
+
 
 ### Running Tests
 
@@ -135,27 +156,3 @@ mkdocs serve
 - [ ] Minimum viable product <-- You are Here
 - [ ] Alpha Release
 - [ ] Feature-Complete Release
-
-### Azure App Set-up
-
-Before being able to send emails, you need to create an app in
-[Azure](https://ecederstrand.github.io/exchangelib/#impersonation-oauth-on-office-365)
-with the necessary permissions to send emails on behalf of a user.
-
-The credentials for the app should be stored in a `.env` or `.envrc` file in the root directory of the project:
-
-- CLIENT_ID: ID of the app created in Azure
-- TENANT_ID:
-  [ID of the organisation](https://learn.microsoft.com/en-us/entra/fundamentals/how-to-find-tenant)
-  in Azure
-- USERNAME: username@ucl.ac.uk <!-- markdownlint-disable-line MD033 -->
-- ACCOUNT: username@ucl.ac.uk <!-- markdownlint-disable-line MD033 -->
-- SCOPE: <https://outlook.office365.com/.default>
-- AUTHOR: For shared mailboxes
-- SERVER: outlook.office365.com
-
-The `ClientApplication` from python `msal` library is used to connect to
-an app installed in Microsoft Azure with the relevant permissions. An access
-token is acquired through `acquire_token_by_username_password` firstly and then the access token is cached so `acquire_token_silent` to be used in future uses of this package. This provides
-the necessary credentials and configuration to access the UCL account from which
-the emails are sent.
