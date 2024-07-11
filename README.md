@@ -112,7 +112,6 @@ token is acquired through `acquire_token_by_username_password` firstly and then 
 the necessary credentials and configuration to access the UCL account from which
 the emails are sent.
 
-
 ### Running Tests
 
 <!-- How to run tests on your local system. -->
