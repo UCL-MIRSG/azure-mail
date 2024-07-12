@@ -9,7 +9,7 @@
         <meta name="description" content="Documentation website for Azure Mail">
       
       
-        <meta name="author" content="MIRSG Ator">
+        <meta name="author" content="MIRSG">
       
       
       
@@ -372,6 +372,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#usage-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       Overview
@@ -539,6 +548,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#usage-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       Overview
@@ -682,6 +700,36 @@ environment run</p>
 <p>and then install in editable mode by running</p>
 <pre><code class="language-sh">python -m pip install -e .
 </code></pre>
+<h3 id="usage-example">Usage Example</h3>
+<pre><code class="language-python">import azure_mail
+
+# Create a meeting invite to send as an attachment in your email
+attachments = azure_mail.create_calendar_ics(
+        subject=&quot;Meeting&quot;,
+        description=&quot;Very important all-day meeting&quot;,
+        date=&quot;January 1, 1970&quot;,
+        start_hour=9,
+        start_minute=0,
+        duration_hours=8,
+        duration_minutes=0,
+        timezone=&quot;Europe/London&quot;,
+    )
+
+message = azure_mail.create_email(
+        recipients={'person1@mail.com', 'someone-else@mail.com'},
+        body=exchangelib.HTMLBody(
+            &quot;&lt;html&gt;&lt;body&gt;Hello, there's a meeting invite attached&lt;/body&gt;&lt;/html&gt;&quot;,
+        ),
+        subject='Meeting invite',
+        attachments=attachments,
+    )
+
+# Save email in Drafts folder
+message.save()
+
+# Send email to recipients
+message.send()
+</code></pre>
 <h3 id="overview">Overview</h3>
 <p>The <code>ClientApplication</code> from python <code>msal</code> library is used to connect to
 an app installed in Microsoft Azure with the relevant permissions. An access
@@ -740,7 +788,7 @@ environment with the optional <code>docs</code> dependencies installed, run</p>
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright © 2024 MIRSG Ator
+      Copyright © 2024 MIRSG
     </div>
   
   
