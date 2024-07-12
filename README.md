@@ -124,12 +124,13 @@ python -m pip install -e .
 ### Usage Example
 
 ```python
-import create_email, create_calendar_ics
+import azure_mail
 
-attachments=create_calendar_ics(
-        subject=str,
-        description=str,
-        date=str,
+# Create a meeting invite to send as an attachment in your email
+attachments = azure_mail.create_calendar_ics(
+        subject="Meeting",
+        description="Very important all-day meeting",
+        date="January 1, 1970",
         start_hour=9,
         start_minute=0,
         duration_hours=8,
@@ -137,19 +138,20 @@ attachments=create_calendar_ics(
         timezone="Europe/London",
     )
 
-message = create_email(
-        recipients=list[str],
-        body=exchangelib.HTMLBody,
-        subject=str,
+message = azure_mail.create_email(
+        recipients={'person1@mail.com', 'someone-else@mail.com'},
+        body=exchangelib.HTMLBody(
+            "<html><body>Hello, there's a meeting invite attached</body></html>",
+        ),
+        subject='Meeting invite',
         attachments=attachments,
     )
 
-# Save email as draft
+# Save email in Drafts folder
 message.save()
 
-# Send email
+# Send email to recipients
 message.send()
-
 ```
 
 ### Overview
