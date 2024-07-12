@@ -121,6 +121,39 @@ and then install in editable mode by running
 python -m pip install -e .
 ```
 
+### Usage Example
+
+```python
+import azure_mail
+
+# Create a meeting invite to send as an attachment in your email
+attachments = azure_mail.create_calendar_ics(
+        subject="Meeting",
+        description="Very important all-day meeting",
+        date="January 1, 1970",
+        start_hour=9,
+        start_minute=0,
+        duration_hours=8,
+        duration_minutes=0,
+        timezone="Europe/London",
+    )
+
+message = azure_mail.create_email(
+        recipients={'person1@mail.com', 'someone-else@mail.com'},
+        body=exchangelib.HTMLBody(
+            "<html><body>Hello, there's a meeting invite attached</body></html>",
+        ),
+        subject='Meeting invite',
+        attachments=attachments,
+    )
+
+# Save email in Drafts folder
+message.save()
+
+# Send email to recipients
+message.send()
+```
+
 ### Overview
 
 The `ClientApplication` from python `msal` library is used to connect to

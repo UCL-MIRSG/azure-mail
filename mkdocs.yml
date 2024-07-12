@@ -1,7 +1,7 @@
 site_name: "Azure Mail"
 site_description: "Documentation website for Azure Mail"
-site_author: "MIRSG Ator"
-copyright: "Copyright © 2024 MIRSG Ator"
+site_author: "MIRSG"
+copyright: "Copyright © 2024 MIRSG"
 repo_url: "https://github.com/UCL-MIRSG/azure-mail/"
 repo_name: "UCL-MIRSG/azure-mail"
 edit_uri: edit/main/docs/

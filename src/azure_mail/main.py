@@ -18,7 +18,14 @@ __all__ = [
 
 
 def _check_or_set_up_cache() -> msal.SerializableTokenCache:
-    """Set up MSAL token cache and load existing token."""
+    """
+    Set up MSAL token cache and load existing token.
+
+    Returns
+    -------
+        msal.SerializableTokenCache: Contains the access token if exists in cache.
+
+    """
     cache = msal.SerializableTokenCache()
     path = pathlib.Path("my_cache.bin")
     if path.exists():
@@ -34,7 +41,14 @@ def _check_or_set_up_cache() -> msal.SerializableTokenCache:
 
 
 def _get_app_access_token() -> dict:
-    """Acquire an access token for the Azure app."""
+    """
+    Acquire an access token for the Azure app through the MSAL library.
+
+    Returns
+    -------
+        dict: Contains the access token within the dict.
+
+    """
     authority = "https://login.microsoftonline.com/" + os.environ["TENANT_ID"]
     global_token_cache = _check_or_set_up_cache()
     app = msal.ClientApplication(
@@ -64,7 +78,19 @@ def _get_app_access_token() -> dict:
 def _setup_email_account(
     access_token: dict,
 ) -> exchangelib.Account:
-    """Use access token to configure Exchange server user account."""
+    """
+    Use access token to configure Exchange user account using OAuth2 authorisation.
+
+    Args:
+        access_token (dict): Contains the access token within the dict.
+
+    Returns:
+    -------
+        exchangelib.Account: An exchangelib account object which contains the account
+        address, access_type (delegate or impersonation) and configuration for
+        exchangelib to connect to the account specified.
+
+    """
     creds = exchangelib.OAuth2AuthorizationCodeCredentials(access_token=access_token)
     conf = exchangelib.Configuration(
         server=os.environ["SERVER"], auth_type=exchangelib.OAUTH2, credentials=creds
@@ -84,7 +110,22 @@ def create_email(
     subject: str,
     attachments: list[exchangelib.FileAttachment],
 ) -> exchangelib.Message:
-    """Create an email to send to a list of users as bcc."""
+    """
+    Create an email to send to a list of users as bcc.
+
+    Args:
+        recipients (list[str]): A list of strings containing email addresses.
+        body (exchangelib.HTMLBody): body of the email.
+        subject (str): Subject of the email.
+        attachments (list[exchangelib.FileAttachment]): List of email attachments.
+
+
+    Returns:
+    -------
+        exchangelib.Message: A message which contains subject, body, sender
+        and recipients etc. To send the email, message.send() method can be used.
+
+    """
     access_token = _get_app_access_token()
     account = _setup_email_account(
         access_token=access_token,
@@ -117,7 +158,26 @@ def create_calendar_ics(  # noqa: PLR0913
     duration_minutes: int = 0,
     timezone: str = "Europe/London",
 ) -> exchangelib.FileAttachment:
-    """Create an ICS calendar file for attaching in an email."""
+    """
+    Create an ICS calendar file for attaching in an email.
+
+    Args:
+        subject (str): Subject line of the mail as title of the event.
+        description (str): Description of the event.
+        date (str): Date of the event.
+        start_hour (int): Hour of the start of the event.
+        start_minute (int, optional): Minute of the start of the event.
+            Defaults to 0.
+        duration_hours (int, optional): Duration of the event in hours.
+        duration_minutes (int, optional): Duration of the event in minutes.
+            Defaults to 0.
+        timezone (str, optional): Timezone of the event. Defaults to "Europe/London".
+
+    Returns:
+    -------
+        exchangelib.FileAttachment: ICS file attachment for the event.
+
+    """
     date_time = dateutil.parser.parse(date)
     time_start = date_time + datetime.timedelta(
         hours=start_hour,
