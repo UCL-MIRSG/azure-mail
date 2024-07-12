@@ -344,32 +344,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#built-with" class="md-nav__link">
-    <span class="md-ellipsis">
-      Built With
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#getting-started" class="md-nav__link">
     <span class="md-ellipsis">
       Getting Started
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Getting Started">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pre-requisites" class="md-nav__link">
     <span class="md-ellipsis">
-      Prerequisites
+      Pre-requisites
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Pre-requisites">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#installation" class="md-nav__link">
@@ -381,9 +372,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#azure-app-set-up" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Azure App Set-up
+      Overview
     </span>
   </a>
   
@@ -409,15 +400,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#roadmap" class="md-nav__link">
-    <span class="md-ellipsis">
-      Roadmap
-    </span>
-  </a>
   
 </li>
       
@@ -529,32 +511,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#built-with" class="md-nav__link">
-    <span class="md-ellipsis">
-      Built With
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#getting-started" class="md-nav__link">
     <span class="md-ellipsis">
       Getting Started
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Getting Started">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pre-requisites" class="md-nav__link">
     <span class="md-ellipsis">
-      Prerequisites
+      Pre-requisites
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Pre-requisites">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#installation" class="md-nav__link">
@@ -566,9 +539,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#azure-app-set-up" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Azure App Set-up
+      Overview
     </span>
   </a>
   
@@ -594,15 +567,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#roadmap" class="md-nav__link">
-    <span class="md-ellipsis">
-      Roadmap
-    </span>
-  </a>
   
 </li>
       
@@ -651,25 +615,57 @@
 College London.</p>
 <h2 id="about">About</h2>
 <h3 id="project-team">Project Team</h3>
-<p>MIRSG</p>
+<p><a href="https://www.ucl.ac.uk/advanced-research-computing/expertise/research-software-development/medical-imaging-research-software-group">MIRSG</a></p>
 <!-- TODO: how do we have an array of collaborators ? -->
 
 <h3 id="research-software-engineering-contact">Research Software Engineering Contact</h3>
 <p>Centre for Advanced Research Computing, University College London
 (<a href="mailto:arc.collaborations@ucl.ac.uk">arc.collaborations@ucl.ac.uk</a>)</p>
-<h2 id="built-with">Built With</h2>
-<!-- TODO: can cookiecutter make a list of frameworks? -->
-
-<ul>
-<li><a href="https://something.com">Framework 1</a></li>
-<li><a href="https://something.com">Framework 2</a></li>
-<li><a href="https://something.com">Framework 3</a></li>
-</ul>
 <h2 id="getting-started">Getting Started</h2>
-<h3 id="prerequisites">Prerequisites</h3>
-<!-- Any tools or versions of languages needed to run code. For example specific Python or Node versions. Minimum hardware requirements also go here. -->
-
-<p><code>azure-mail</code> requires Python 3.11&ndash;3.12.</p>
+<h2 id="pre-requisites">Pre-requisites</h2>
+<ol>
+<li>create an app in Azure for sending emails</li>
+</ol>
+<p>Before using <code>azure-mail</code>, you will need to create an app in Azure
+with the <a href="https://ecederstrand.github.io/exchangelib/#impersonation-oauth-on-office-365">necessary permissions</a> to send emails on behalf of a user. For example, <code>EWS.AccessAsUser.All</code> Delegated permission within Office 365 Exchange Online scope should allow emails to be sent. This permission is described as "Access mailboxes as the signed-in user via Exchange Web Services" in the Azure portal.</p>
+<ol>
+<li>store the necessary credentials in a <code>.envrc</code> file</li>
+</ol>
+<p>The credentials should be stored in a <code>.envrc</code> file in the root directory of the project. The file should container the following information:</p>
+<pre><code class="language-shell"># layout python
+export CLIENT_ID=
+export CLIENT_SECRET=
+export TENANT_ID=
+export ACCOUNT=
+export USERNAME=
+export USER_PASSWORD=
+export AUTHOR=
+export SCOPE=
+export SERVER=
+</code></pre>
+<p>Here's a brief explanation of each line above:</p>
+<ul>
+<li><code>layout python</code>: required for <code>direnv</code> to export the environment variables</li>
+<li><code>CLIENT_ID</code>: <a href="https://learn.microsoft.com/en-us/entra/identity-platform/msal-client-application-configuration#client-id">ID of the app</a> created in Azure</li>
+<li><code>CLIENT_SECRET</code>: <a href="https://learn.microsoft.com/en-us/entra/identity-platform/msal-client-applications#secrets-and-their-importance-in-proving-identity">secret</a> used by the app to authenticate to the email server</li>
+<li><code>TENANT_ID</code>:
+  <a href="https://learn.microsoft.com/en-us/entra/fundamentals/how-to-find-tenant">ID of the organisation</a>
+  in Azure</li>
+<li><code>ACCOUNT</code> : account to send emails from (e.g. abcdef@ucl.ac.uk)</li>
+<li><code>USERNAME</code>: username of sender (if at UCL, your UCL ID e.g. abcdefg)</li>
+<li><code>USER_PASSWORD</code>: password of sender</li>
+<li><code>AUTHOR</code>: emails address to send email from. Can be different to <code>ACCOUNT</code> if, for example, sending from a shared mailbox</li>
+<li><code>SCOPE</code>: <a href="https://learn.microsoft.com/en-us/entra/identity-platform/scopes-oidc">scope</a> of the account (e.g. https://outlook.office365.com/.default)</li>
+<li>
+<p><code>SERVER</code>: server for <a href="https://ecederstrand.github.io/exchangelib/exchangelib/configuration.html#exchangelib.configuration.Configuration"><code>exchanglib</code> configuration</a> (e.g. outlook.office365.com)</p>
+</li>
+<li>
+<p>[recommended] install and configure <code>direnv</code> to automatically export the credentials as environment variables</p>
+</li>
+</ul>
+<p><a href="https://direnv.net/docs/installation.html">Install <code>direnv</code></a> and then grant it permission to load your <code>.envrc</code> file:</p>
+<pre><code class="language-bash">direnv allow .
+</code></pre>
 <h3 id="installation">Installation</h3>
 <!-- How to build or install the application. -->
 
@@ -678,34 +674,20 @@ a environment management tool such as
 <a href="https://docs.conda.io/projects/conda/en/stable/">Conda</a>. To install the latest
 development version of <code>azure-mail</code> using <code>pip</code> in the currently active
 environment run</p>
-<pre><code class="language-sh">pip install git+https://github.com/UCL-MIRSG/azure-mail.git
+<pre><code class="language-sh">python -m pip install git+https://github.com/UCL-MIRSG/azure-mail.git
 </code></pre>
 <p>Alternatively create a local clone of the repository with</p>
 <pre><code class="language-sh">git clone https://github.com/UCL-MIRSG/azure-mail.git
 </code></pre>
 <p>and then install in editable mode by running</p>
-<pre><code class="language-sh">pip install -e .
+<pre><code class="language-sh">python -m pip install -e .
 </code></pre>
-<h3 id="azure-app-set-up">Azure App Set-up</h3>
-<p>Before being able to send emails, you need to create an app in
-<a href="https://ecederstrand.github.io/exchangelib/#impersonation-oauth-on-office-365">Azure</a>
-with the necessary permissions to send emails on behalf of a user.</p>
-<p>The credentials for the app should be stored in a <code>.env</code> or <code>.envrc</code> file in the root directory of the project:</p>
-<ul>
-<li>CLIENT_ID: ID of the app created in Azure</li>
-<li>TENANT_ID:
-  <a href="https://learn.microsoft.com/en-us/entra/fundamentals/how-to-find-tenant">ID of the organisation</a>
-  in Azure</li>
-<li>USERNAME: username@ucl.ac.uk <!-- markdownlint-disable-line MD033 --></li>
-<li>ACCOUNT: username@ucl.ac.uk <!-- markdownlint-disable-line MD033 --></li>
-<li>SCOPE: <a href="https://outlook.office365.com/.default">https://outlook.office365.com/.default</a></li>
-<li>AUTHOR: For shared mailboxes</li>
-<li>SERVER: outlook.office365.com</li>
-</ul>
+<h3 id="overview">Overview</h3>
 <p>The <code>ClientApplication</code> from python <code>msal</code> library is used to connect to
 an app installed in Microsoft Azure with the relevant permissions. An access
-token is acquired through <code>acquire_token_by_username_password</code> firstly and then the access token is cached so <code>acquire_token_silent</code> to be used in future uses of this package. This provides
-the necessary credentials and configuration to access the UCL account from which
+token is acquired through <code>acquire_token_by_username_password</code> firstly and then the
+access token is cached so <code>acquire_token_silent</code> to be used in future uses of this package.
+This provides the necessary credentials and configuration to access the UCL account from which
 the emails are sent.</p>
 <h3 id="running-tests">Running Tests</h3>
 <!-- How to run tests on your local system. -->
@@ -728,13 +710,6 @@ using <a href="https://tox.wiki/en/latest/"><code>tox</code></a> by running</p>
 environment with the optional <code>docs</code> dependencies installed, run</p>
 <pre><code class="language-sh">mkdocs serve
 </code></pre>
-<h2 id="roadmap">Roadmap</h2>
-<ul class="task-list">
-<li class="task-list-item"><input type="checkbox" disabled checked/> Initial Research</li>
-<li class="task-list-item"><input type="checkbox" disabled/> Minimum viable product &lt;-- You are Here</li>
-<li class="task-list-item"><input type="checkbox" disabled/> Alpha Release</li>
-<li class="task-list-item"><input type="checkbox" disabled/> Feature-Complete Release</li>
-</ul>
 <!-- END INCLUDE -->
 
 
