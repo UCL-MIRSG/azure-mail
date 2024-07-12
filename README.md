@@ -121,6 +121,37 @@ and then install in editable mode by running
 python -m pip install -e .
 ```
 
+### Usage Example
+
+```python
+import create_email, create_calendar_ics
+
+attachments=create_calendar_ics(
+        subject=str,
+        description=str,
+        date=str,
+        start_hour=9,
+        start_minute=0,
+        duration_hours=8,
+        duration_minutes=0,
+        timezone="Europe/London",
+    )
+
+message = create_email(
+        recipients=list[str],
+        body=exchangelib.HTMLBody,
+        subject=str,
+        attachments=attachments,
+    )
+
+# Save email as draft
+message.save()
+
+# Send email
+message.send()
+
+```
+
 ### Overview
 
 The `ClientApplication` from python `msal` library is used to connect to
