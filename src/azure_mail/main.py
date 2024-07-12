@@ -117,8 +117,7 @@ def create_email(
         recipients (list[str]): A list of strings containing email addresses.
         body (exchangelib.HTMLBody): body of the email.
         subject (str): Subject of the email.
-        attachments (list[exchangelib.FileAttachment]): List of attachments to add to
-        the email.
+        attachments (list[exchangelib.FileAttachment]): List of email attachments.
 
 
     Returns:
