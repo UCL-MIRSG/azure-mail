@@ -182,8 +182,6 @@ pytest tests
 
 again from the root of the repository.
 
-N.B. Currently no tests exist.
-
 ### Building Documentation
 
 The MkDocs HTML documentation can be built locally by running
