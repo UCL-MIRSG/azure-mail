@@ -53,7 +53,7 @@ Centre for Advanced Research Computing, University College London
 1. create an app in Azure for sending emails
 
 Before using `azure-mail`, you will need to create an app in Azure
-with the [necessary permissions](https://ecederstrand.github.io/exchangelib/#impersonation-oauth-on-office-365) to send emails on behalf of a user.
+with the [necessary permissions](https://ecederstrand.github.io/exchangelib/#impersonation-oauth-on-office-365) to send emails on behalf of a user. For example, `EWS.AccessAsUser.All` Delegated permission within Office 365 Exchange Online scope should allow emails to be sent. This permission is described as "Access mailboxes as the signed-in user via Exchange Web Services" in the Azure portal.
 
 2. store the necessary credentials in a `.envrc` file
 
