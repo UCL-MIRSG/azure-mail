@@ -64,8 +64,8 @@ def _get_app_access_token() -> dict:
         result = app.acquire_token_silent([os.environ["SCOPE"]], account=accounts[0])
 
     else:
-        result = app.acquire_token_by_username_password(
-            os.environ["ACCOUNT"], os.environ["USER_PASSWORD"], [os.environ["SCOPE"]]
+        result = app.acquire_token_interactive(
+            [os.environ["SCOPE"]], login_hint=os.environ["ACCOUNT"]
         )
 
     if "access_token" not in result:
