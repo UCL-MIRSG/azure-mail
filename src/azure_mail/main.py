@@ -53,7 +53,6 @@ def _get_app_access_token() -> dict:
     global_token_cache = _check_or_set_up_cache()
     app = msal.PublicClientApplication(
         os.environ["CLIENT_ID"],
-        client_credential=os.environ["CLIENT_SECRET"],
         authority=authority,
         token_cache=global_token_cache,
     )
