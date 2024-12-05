@@ -51,7 +51,7 @@ def _get_app_access_token() -> dict:
     """
     authority = "https://login.microsoftonline.com/" + os.environ["TENANT_ID"]
     global_token_cache = _check_or_set_up_cache()
-    app = msal.ClientApplication(
+    app = msal.PublicClientApplication(
         os.environ["CLIENT_ID"],
         client_credential=os.environ["CLIENT_SECRET"],
         authority=authority,
