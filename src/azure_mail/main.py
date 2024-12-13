@@ -4,6 +4,7 @@ import atexit
 import datetime
 import os
 import pathlib
+import pdb  # noqa: T100
 
 import dateutil.parser
 import exchangelib
@@ -130,7 +131,31 @@ def create_email(
         access_token=access_token,
     )
 
-    dl = exchangelib.DistributionList(display_name="Test", members=recipients)
+    pdb.set_trace()  # noqa: T100
+    # Retrieve or create a distribution list
+    dl_name = "Test Mailing List"
+    distribution_list = None
+
+    # Check if the distribution list exists
+    for contact in account.contacts.all():
+        if contact.display_name == dl_name:
+            distribution_list = contact
+            break
+
+    # If it doesn't exist, create a new one
+    if not distribution_list:
+        distribution_list = exchangelib.DistributionList(
+            display_name=dl_name, account=account
+        )
+        distribution_list.save()
+
+    # Add members to the distribution list
+    for email_address in recipients:
+        member = exchangelib.Mailbox(email_address=email_address)
+        distribution_list.members.add(member)
+
+    # Save changes to the distribution list
+    distribution_list.save()
 
     message = exchangelib.Message(
         account=account,
@@ -139,7 +164,7 @@ def create_email(
         subject=subject,
         body=body,
         to_recipients=[exchangelib.Mailbox(email_address=os.environ["AUTHOR"])],
-        bcc_recipients=dl,
+        bcc_recipients=distribution_list,
     )
 
     message.attach(
