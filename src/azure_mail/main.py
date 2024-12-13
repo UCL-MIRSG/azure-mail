@@ -145,7 +145,7 @@ def create_email(
     # If it doesn't exist, create a new one
     if not distribution_list:
         distribution_list = exchangelib.DistributionList(
-            display_name=dl_name, account=account
+            display_name=dl_name, account=account, folder=account.contacts
         )
         distribution_list.save()
 
