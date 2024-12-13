@@ -130,6 +130,8 @@ def create_email(
         access_token=access_token,
     )
 
+    dl = exchangelib.DistributionList(display_name="Test", members=recipients)
+
     message = exchangelib.Message(
         account=account,
         folder=account.drafts,
@@ -137,7 +139,7 @@ def create_email(
         subject=subject,
         body=body,
         to_recipients=[exchangelib.Mailbox(email_address=os.environ["AUTHOR"])],
-        bcc_recipients=recipients,
+        bcc_recipients=dl,
     )
 
     message.attach(
