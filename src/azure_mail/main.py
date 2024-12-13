@@ -163,6 +163,7 @@ def create_email(
     # Save changes to the distribution list
     distribution_list.save()
 
+    pdb.set_trace()  # noqa: T100
     message = exchangelib.Message(
         account=account,
         folder=account.drafts,
@@ -170,7 +171,7 @@ def create_email(
         subject=subject,
         body=body,
         to_recipients=[exchangelib.Mailbox(email_address=os.environ["AUTHOR"])],
-        bcc_recipients=distribution_list.members,
+        bcc_recipients=[member.mailbox for member in distribution_list.members],
     )
 
     message.attach(
