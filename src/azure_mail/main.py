@@ -150,6 +150,10 @@ def create_email(
         distribution_list.members = []
         distribution_list.save()
 
+    # Ensure members attribute is initialised
+    if distribution_list.members is None:
+        distribution_list.members = []
+
     # Add members to the distribution list
     for email_address in recipients:
         member = exchangelib.Mailbox(email_address=email_address)
