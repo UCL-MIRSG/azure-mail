@@ -157,7 +157,12 @@ def create_email(
     # Add members to the distribution list
     pdb.set_trace()  # noqa: T100
     for email_address in recipients:
-        member = exchangelib.Mailbox(email_address=email_address)
+        # Create a Member object for each email
+        member = exchangelib.properties.Member(
+            mailbox=exchangelib.Mailbox(
+                email_address=email_address
+            )  # Wrap Mailbox in Member
+        )
         distribution_list.members.append(member)
 
     # Save changes to the distribution list
