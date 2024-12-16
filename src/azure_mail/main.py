@@ -163,6 +163,8 @@ def create_email(
                 email_address=email_address
             )  # Wrap Mailbox in Member
         )
+        pdb.set_trace()  # noqa: T100
+        member.mailbox_type = "OneOff"
         distribution_list.members.append(member)
 
     # Save changes to the distribution list
