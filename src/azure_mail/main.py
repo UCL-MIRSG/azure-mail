@@ -160,11 +160,10 @@ def create_email(
         # Create a Member object for each email
         member = exchangelib.properties.Member(
             mailbox=exchangelib.Mailbox(
-                email_address=email_address
+                email_address=email_address, mailbox_type="OneOff"
             )  # Wrap Mailbox in Member
         )
         pdb.set_trace()  # noqa: T100
-        member.mailbox_type = "OneOff"
         distribution_list.members.append(member)
 
     # Save changes to the distribution list
