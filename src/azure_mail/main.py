@@ -60,7 +60,7 @@ def _get_app_access_token() -> dict:
     )
 
     accounts = app.get_accounts(username=os.environ["ACCOUNT"])
-
+    pdb.set_trace()  # noqa: T100
     if accounts:
         result = app.acquire_token_silent([os.environ["SCOPE"]], account=accounts[0])
 
@@ -68,7 +68,7 @@ def _get_app_access_token() -> dict:
         result = app.acquire_token_interactive(
             [os.environ["SCOPE"]], login_hint=os.environ["ACCOUNT"]
         )
-
+    pdb.set_trace()  # noqa: T100
     if "access_token" not in result:
         message = f"Access token could not be acquired {result['error_description']}"
         raise RuntimeError(message)
