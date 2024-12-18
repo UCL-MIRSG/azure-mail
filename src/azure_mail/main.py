@@ -52,6 +52,7 @@ def _get_app_access_token() -> dict:
     """
     authority = "https://login.microsoftonline.com/" + os.environ["TENANT_ID"]
     global_token_cache = _check_or_set_up_cache()
+    pdb.set_trace()  # noqa: T100
     app = msal.PublicClientApplication(
         os.environ["CLIENT_ID"],
         authority=authority,
@@ -244,3 +245,68 @@ def create_calendar_ics(  # noqa: PLR0913
         name=f"{subject}.ics",
         content=bytes(calendar.serialize(), "UTF-8"),
     )
+
+
+def create_distribution_list(
+    recipients: list[str],
+) -> exchangelib.Message:
+    """
+    Create an email to send to a list of users as bcc.
+
+    Args:
+        recipients (list[str]): A list of strings containing email addresses.
+        body (exchangelib.HTMLBody): body of the email.
+        subject (str): Subject of the email.
+        attachments (list[exchangelib.FileAttachment]): List of email attachments.
+
+
+    Returns:
+    -------
+        exchangelib.Message: A message which contains subject, body, sender
+        and recipients etc. To send the email, message.send() method can be used.
+
+    """
+    access_token = _get_app_access_token()
+    account = _setup_email_account(
+        access_token=access_token,
+    )
+
+    pdb.set_trace()  # noqa: T100
+    # Retrieve or create a distribution list
+    dl_name = "Test Mailing List"
+    distribution_list = None
+
+    # Check if the distribution list exists
+    for contact in account.contacts.all():
+        if contact.display_name == dl_name:
+            distribution_list = contact
+            break
+
+    # If it doesn't exist, create a new one
+    if not distribution_list:
+        distribution_list = exchangelib.DistributionList(
+            display_name=dl_name, account=account, folder=account.contacts
+        )
+        distribution_list.members = []
+        distribution_list.save()
+
+    # Ensure members attribute is initialised
+    if distribution_list.members is None:
+        distribution_list.members = []
+
+    # Add members to the distribution list
+    pdb.set_trace()  # noqa: T100
+    for email_address in recipients:
+        # Create a Member object for each email
+        member = exchangelib.properties.Member(
+            mailbox=exchangelib.Mailbox(
+                email_address=email_address, mailbox_type="OneOff"
+            )  # Wrap Mailbox in Member
+        )
+        pdb.set_trace()  # noqa: T100
+        distribution_list.members.append(member)
+
+    # Save changes to the distribution list
+    distribution_list.save()
+
+    return "distribution_list"
