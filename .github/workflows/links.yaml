@@ -1,0 +1,19 @@
+---
+name: links
+
+on:
+  push:
+    branches:
+      - main
+      - renovate/**
+  pull_request:
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Check links
+        uses: UCL-MIRSG/.github/actions/links@1287e3a2d7a0a513066b1b04d3d2814b44e96ac9 # v0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
