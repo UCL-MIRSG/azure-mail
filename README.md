@@ -13,17 +13,12 @@
 -->
 
 <!-- prettier-ignore-start -->
-[tests-badge]:              https://github.com/UCL-MIRSG/azure-mail/actions/workflows/tests.yml/badge.svg
-[tests-link]:               https://github.com/UCL-MIRSG/azure-mail/actions/workflows/tests.yml
-[linting-badge]:            https://github.com/UCL-MIRSG/azure-mail/actions/workflows/linting.yml/badge.svg
-[linting-link]:             https://github.com/UCL-MIRSG/azure-mail/actions/workflows/linting.yml
-[documentation-badge]:      https://github.com/UCL-MIRSG/azure-mail/actions/workflows/docs.yml/badge.svg
-[documentation-link]:       https://github.com/UCL-MIRSG/azure-mail/actions/workflows/docs.yml
-[conda-badge]:              https://img.shields.io/conda/vn/conda-forge/azure-mail
-[conda-link]:               https://github.com/conda-forge/azure-mail-feedstock
-[pypi-link]:                https://pypi.org/project/azure-mail/
-[pypi-platforms]:           https://img.shields.io/pypi/pyversions/azure-mail
-[pypi-version]:             https://img.shields.io/pypi/v/azure-mail
+[tests-badge]:              https://github.com/UCL-MIRSG/azure-mail/actions/workflows/tests.yaml/badge.svg
+[tests-link]:               https://github.com/UCL-MIRSG/azure-mail/actions/workflows/tests.yaml
+[linting-badge]:            https://github.com/UCL-MIRSG/azure-mail/actions/workflows/linting.yaml/badge.svg
+[linting-link]:             https://github.com/UCL-MIRSG/azure-mail/actions/workflows/linting.yaml
+[documentation-badge]:      https://github.com/UCL-MIRSG/azure-mail/actions/workflows/docs.yaml/badge.svg
+[documentation-link]:       https://github.com/UCL-MIRSG/azure-mail/actions/workflows/docs.yaml
 [license-badge]:            https://img.shields.io/badge/License-MIT-yellow.svg
 <!-- prettier-ignore-end -->
 
@@ -52,48 +47,64 @@ Centre for Advanced Research Computing, University College London
 
 1. create an app in Azure for sending emails
 
-Before using `azure-mail`, you will need to create an app in Azure
-with the [necessary permissions](https://ecederstrand.github.io/exchangelib/#impersonation-oauth-on-office-365) to send emails on behalf of a user. For example, `EWS.AccessAsUser.All` Delegated permission within Office 365 Exchange Online scope should allow emails to be sent. This permission is described as "Access mailboxes as the signed-in user via Exchange Web Services" in the Azure portal.
+   Before using `azure-mail`, you will need to create an app in Azure with the
+   [necessary permissions](https://ecederstrand.github.io/exchangelib/#impersonation-oauth-on-office-365)
+   to send emails on behalf of a user. For example, `EWS.AccessAsUser.All`
+   Delegated permission within Office 365 Exchange Online scope should allow
+   emails to be sent. This permission is described as "Access mailboxes as the
+   signed-in user via Exchange Web Services" in the Azure portal.
 
 2. store the necessary credentials in a `.envrc` file
 
-The credentials should be stored in a `.envrc` file in the root directory of the project. The file should container the following information:
+   The credentials should be stored in a `.envrc` file in the root directory of
+   the project. The file should container the following information:
 
-```shell
-# layout python
-export CLIENT_ID=
-export CLIENT_SECRET=
-export TENANT_ID=
-export ACCOUNT=
-export USERNAME=
-export USER_PASSWORD=
-export AUTHOR=
-export SCOPE=
-export SERVER=
-```
+   ```shell
+   # layout python
+   export CLIENT_ID=
+   export CLIENT_SECRET=
+   export TENANT_ID=
+   export ACCOUNT=
+   export USERNAME=
+   export USER_PASSWORD=
+   export AUTHOR=
+   export SCOPE=
+   export SERVER=
+   ```
 
-Here's a brief explanation of each line above:
+   Here's a brief explanation of each line above:
 
-- `layout python`: required for `direnv` to export the environment variables
-- `CLIENT_ID`: [ID of the app](https://learn.microsoft.com/en-us/entra/identity-platform/msal-client-application-configuration#client-id) created in Azure
-- `CLIENT_SECRET`: [secret](https://learn.microsoft.com/en-us/entra/identity-platform/msal-client-applications#secrets-and-their-importance-in-proving-identity) used by the app to authenticate to the email server
-- `TENANT_ID`:
-  [ID of the organisation](https://learn.microsoft.com/en-us/entra/fundamentals/how-to-find-tenant)
-  in Azure
-- `ACCOUNT` : account to send emails from (e.g. abcdef@ucl.ac.uk)
-- `USERNAME`: username of sender (if at UCL, your UCL ID e.g. abcdefg)
-- `USER_PASSWORD`: password of sender
-- `AUTHOR`: emails address to send email from. Can be different to `ACCOUNT` if, for example, sending from a shared mailbox
-- `SCOPE`: [scope](https://learn.microsoft.com/en-us/entra/identity-platform/scopes-oidc) of the account (e.g. https://outlook.office365.com/.default)
-- `SERVER`: server for [`exchanglib` configuration](https://ecederstrand.github.io/exchangelib/exchangelib/configuration.html#exchangelib.configuration.Configuration) (e.g. outlook.office365.com)
+   - `layout python`: required for `direnv` to export the environment variables
+   - `CLIENT_ID`:
+     [ID of the app](https://learn.microsoft.com/en-us/entra/identity-platform/msal-client-application-configuration#client-id)
+     created in Azure
+   - `CLIENT_SECRET`:
+     [secret](https://learn.microsoft.com/en-us/entra/identity-platform/msal-client-applications#secrets-and-their-importance-in-proving-identity)
+     used by the app to authenticate to the email server
+   - `TENANT_ID`:
+     [ID of the organisation](https://learn.microsoft.com/en-us/entra/fundamentals/how-to-find-tenant)
+     in Azure
+   - `ACCOUNT` : account to send emails from (e.g. <abcdef@ucl.ac.uk>)
+   - `USERNAME`: username of sender (if at UCL, your UCL ID e.g. abcdefg)
+   - `USER_PASSWORD`: password of sender
+   - `AUTHOR`: emails address to send email from. Can be different to `ACCOUNT`
+     if, for example, sending from a shared mailbox
+   - `SCOPE`:
+     [scope](https://learn.microsoft.com/en-us/entra/identity-platform/scopes-oidc)
+     of the account (e.g. <https://outlook.office365.com/.default>)
+   - `SERVER`: server for
+     [`exchanglib` configuration](https://ecederstrand.github.io/exchangelib/exchangelib/configuration.html#exchangelib.configuration.Configuration)
+     (e.g. outlook.office365.com)
 
-3. [recommended] install and configure `direnv` to automatically export the credentials as environment variables
+3. [recommended] install and configure `direnv` to automatically export the
+   credentials as environment variables
 
-[Install `direnv`](https://direnv.net/docs/installation.html) and then grant it permission to load your `.envrc` file:
+   [Install `direnv`](https://direnv.net/docs/installation.html) and then grant
+   it permission to load your `.envrc` file:
 
-```bash
-direnv allow .
-```
+   ```bash
+   direnv allow .
+   ```
 
 ### Installation
 
@@ -156,12 +167,12 @@ message.send()
 
 ### Overview
 
-The `ClientApplication` from python `msal` library is used to connect to
-an app installed in Microsoft Azure with the relevant permissions. An access
-token is acquired through `acquire_token_by_username_password` firstly and then the
-access token is cached so `acquire_token_silent` to be used in future uses of this package.
-This provides the necessary credentials and configuration to access the UCL account from which
-the emails are sent.
+The `ClientApplication` from python `msal` library is used to connect to an app
+installed in Microsoft Azure with the relevant permissions. An access token is
+acquired through `acquire_token_by_username_password` firstly and then the
+access token is cached so `acquire_token_silent` to be used in future uses of
+this package. This provides the necessary credentials and configuration to
+access the UCL account from which the emails are sent.
 
 ### Running Tests
 

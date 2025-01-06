@@ -1,0 +1,4 @@
+[files]
+extend-exclude = [
+    "schemas/github-issue-forms.json",
+]
