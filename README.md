@@ -13,12 +13,12 @@
 -->
 
 <!-- prettier-ignore-start -->
-[tests-badge]:              https://github.com/UCL-MIRSG/azure-mail/actions/workflows/tests.yml/badge.svg
-[tests-link]:               https://github.com/UCL-MIRSG/azure-mail/actions/workflows/tests.yml
-[linting-badge]:            https://github.com/UCL-MIRSG/azure-mail/actions/workflows/linting.yml/badge.svg
-[linting-link]:             https://github.com/UCL-MIRSG/azure-mail/actions/workflows/linting.yml
-[documentation-badge]:      https://github.com/UCL-MIRSG/azure-mail/actions/workflows/docs.yml/badge.svg
-[documentation-link]:       https://github.com/UCL-MIRSG/azure-mail/actions/workflows/docs.yml
+[tests-badge]:              https://github.com/UCL-MIRSG/azure-mail/actions/workflows/tests.yaml/badge.svg
+[tests-link]:               https://github.com/UCL-MIRSG/azure-mail/actions/workflows/tests.yaml
+[linting-badge]:            https://github.com/UCL-MIRSG/azure-mail/actions/workflows/linting.yaml/badge.svg
+[linting-link]:             https://github.com/UCL-MIRSG/azure-mail/actions/workflows/linting.yaml
+[documentation-badge]:      https://github.com/UCL-MIRSG/azure-mail/actions/workflows/docs.yaml/badge.svg
+[documentation-link]:       https://github.com/UCL-MIRSG/azure-mail/actions/workflows/docs.yaml
 [license-badge]:            https://img.shields.io/badge/License-MIT-yellow.svg
 <!-- prettier-ignore-end -->
 
