@@ -5,5 +5,7 @@ authors:
   - group-name: "Medical Imaging Research Software Group"
     email: "arc.medical-imaging@ucl.ac.uk"
 repository-code: "https://github.com/UCL-MIRSG/azure-mail"
-title: "Azure Mail: A Python package for sending emails in Office 365 via an Azure app"
+title:
+  "Azure Mail: A Python package for sending emails in Office 365 via an Azure
+  app"
 license: "MIT"

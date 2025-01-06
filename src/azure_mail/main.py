@@ -12,8 +12,8 @@ import msal
 import pytz
 
 __all__ = [
-    "create_email",
     "create_calendar_ics",
+    "create_email",
 ]
 
 
