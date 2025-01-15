@@ -4,7 +4,6 @@ import atexit
 import datetime
 import os
 import pathlib
-import pdb  # noqa: T100
 
 import dateutil.parser
 import exchangelib
@@ -52,7 +51,6 @@ def _get_app_access_token() -> dict:
     """
     authority = "https://login.microsoftonline.com/" + os.environ["TENANT_ID"]
     global_token_cache = _check_or_set_up_cache()
-    pdb.set_trace()  # noqa: T100
     app = msal.PublicClientApplication(
         os.environ["CLIENT_ID"],
         authority=authority,
@@ -60,7 +58,6 @@ def _get_app_access_token() -> dict:
     )
 
     accounts = app.get_accounts(username=os.environ["ACCOUNT"])
-    pdb.set_trace()  # noqa: T100
     if accounts:
         result = app.acquire_token_silent([os.environ["SCOPE"]], account=accounts[0])
 
@@ -68,7 +65,6 @@ def _get_app_access_token() -> dict:
         result = app.acquire_token_interactive(
             [os.environ["SCOPE"]], login_hint=os.environ["ACCOUNT"]
         )
-    pdb.set_trace()  # noqa: T100
     if "access_token" not in result:
         message = f"Access token could not be acquired {result['error_description']}"
         raise RuntimeError(message)
@@ -132,7 +128,6 @@ def create_email(
         access_token=access_token,
     )
 
-    pdb.set_trace()  # noqa: T100
     # Retrieve or create a distribution list
     dl_name = "Test Mailing List"
     distribution_list = None
@@ -156,7 +151,6 @@ def create_email(
         distribution_list.members = []
 
     # Add members to the distribution list
-    pdb.set_trace()  # noqa: T100
     for email_address in recipients:
         # Create a Member object for each email
         member = exchangelib.properties.Member(
@@ -164,13 +158,11 @@ def create_email(
                 email_address=email_address, mailbox_type="OneOff"
             )  # Wrap Mailbox in Member
         )
-        pdb.set_trace()  # noqa: T100
         distribution_list.members.append(member)
 
     # Save changes to the distribution list
     distribution_list.save()
 
-    pdb.set_trace()  # noqa: T100
     message = exchangelib.Message(
         account=account,
         folder=account.drafts,
@@ -271,7 +263,6 @@ def create_distribution_list(
         access_token=access_token,
     )
 
-    pdb.set_trace()  # noqa: T100
     # Retrieve or create a distribution list
     dl_name = "Test Mailing List"
     distribution_list = None
@@ -295,7 +286,6 @@ def create_distribution_list(
         distribution_list.members = []
 
     # Add members to the distribution list
-    pdb.set_trace()  # noqa: T100
     for email_address in recipients:
         # Create a Member object for each email
         member = exchangelib.properties.Member(
@@ -303,7 +293,6 @@ def create_distribution_list(
                 email_address=email_address, mailbox_type="OneOff"
             )  # Wrap Mailbox in Member
         )
-        pdb.set_trace()  # noqa: T100
         distribution_list.members.append(member)
 
     # Save changes to the distribution list
