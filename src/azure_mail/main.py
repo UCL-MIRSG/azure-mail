@@ -4,6 +4,7 @@ import atexit
 import datetime
 import os
 import pathlib
+import pdb  # noqa: T100
 
 import dateutil.parser
 import exchangelib
@@ -129,6 +130,7 @@ def create_email(
     )
 
     # Retrieve or create a distribution list
+    pdb.set_trace()  # noqa: T100
     dl_name = "Test Mailing List"
     distribution_list = None
 
