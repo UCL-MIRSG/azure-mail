@@ -102,27 +102,14 @@ def _setup_email_account(
     )
 
 
-def create_email(
+def create_email_list(
+    limit: str,
     recipients: list[str],
-    body: exchangelib.HTMLBody,
-    subject: str,
-    attachments: list[exchangelib.FileAttachment],
 ) -> exchangelib.Message:
     """
     Create an email to send to a list of users as bcc.
 
-    Args:
-        recipients (list[str]): A list of strings containing email addresses.
-        body (exchangelib.HTMLBody): body of the email.
-        subject (str): Subject of the email.
-        attachments (list[exchangelib.FileAttachment]): List of email attachments.
-
-
-    Returns:
-    -------
-        exchangelib.Message: A message which contains subject, body, sender
-        and recipients etc. To send the email, message.send() method can be used.
-
+    member.mailbox for member in distribution_list.members
     """
     access_token = _get_app_access_token()
     account = _setup_email_account(
@@ -131,7 +118,7 @@ def create_email(
 
     # Retrieve or create a distribution list
     pdb.set_trace()  # noqa: T100
-    dl_name = "Test Mailing List"
+    dl_name = f"{limit} Mailing List"
     distribution_list = None
 
     # Check if the distribution list exists
@@ -165,6 +152,34 @@ def create_email(
     # Save changes to the distribution list
     distribution_list.save()
 
+
+def create_email(
+    recipients: list[str],
+    body: exchangelib.HTMLBody,
+    subject: str,
+    attachments: list[exchangelib.FileAttachment],
+) -> exchangelib.Message:
+    """
+    Create an email to send to a list of users as bcc.
+
+    Args:
+        recipients (list[str]): A list of strings containing email addresses.
+        body (exchangelib.HTMLBody): body of the email.
+        subject (str): Subject of the email.
+        attachments (list[exchangelib.FileAttachment]): List of email attachments.
+
+
+    Returns:
+    -------
+        exchangelib.Message: A message which contains subject, body, sender
+        and recipients etc. To send the email, message.send() method can be used.
+
+    """
+    access_token = _get_app_access_token()
+    account = _setup_email_account(
+        access_token=access_token,
+    )
+
     message = exchangelib.Message(
         account=account,
         folder=account.drafts,
@@ -172,7 +187,7 @@ def create_email(
         subject=subject,
         body=body,
         to_recipients=[exchangelib.Mailbox(email_address=os.environ["AUTHOR"])],
-        bcc_recipients=[member.mailbox for member in distribution_list.members],
+        bcc_recipients=[recipients],
     )
 
     message.attach(
@@ -239,65 +254,3 @@ def create_calendar_ics(  # noqa: PLR0913
         name=f"{subject}.ics",
         content=bytes(calendar.serialize(), "UTF-8"),
     )
-
-
-def create_distribution_list(
-    recipients: list[str],
-) -> exchangelib.Message:
-    """
-    Create an email to send to a list of users as bcc.
-
-    Args:
-        recipients (list[str]): A list of strings containing email addresses.
-        body (exchangelib.HTMLBody): body of the email.
-        subject (str): Subject of the email.
-        attachments (list[exchangelib.FileAttachment]): List of email attachments.
-
-
-    Returns:
-    -------
-        exchangelib.Message: A message which contains subject, body, sender
-        and recipients etc. To send the email, message.send() method can be used.
-
-    """
-    access_token = _get_app_access_token()
-    account = _setup_email_account(
-        access_token=access_token,
-    )
-
-    # Retrieve or create a distribution list
-    dl_name = "Test Mailing List"
-    distribution_list = None
-
-    # Check if the distribution list exists
-    for contact in account.contacts.all():
-        if contact.display_name == dl_name:
-            distribution_list = contact
-            break
-
-    # If it doesn't exist, create a new one
-    if not distribution_list:
-        distribution_list = exchangelib.DistributionList(
-            display_name=dl_name, account=account, folder=account.contacts
-        )
-        distribution_list.members = []
-        distribution_list.save()
-
-    # Ensure members attribute is initialised
-    if distribution_list.members is None:
-        distribution_list.members = []
-
-    # Add members to the distribution list
-    for email_address in recipients:
-        # Create a Member object for each email
-        member = exchangelib.properties.Member(
-            mailbox=exchangelib.Mailbox(
-                email_address=email_address, mailbox_type="OneOff"
-            )  # Wrap Mailbox in Member
-        )
-        distribution_list.members.append(member)
-
-    # Save changes to the distribution list
-    distribution_list.save()
-
-    return "distribution_list"
