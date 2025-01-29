@@ -106,9 +106,10 @@ def create_email_list(
     recipients: list[str],
 ) -> exchangelib.Message:
     """
-    Create an email to send to a list of users as bcc.
+    Create an email distribution list.
 
-    member.mailbox for member in distribution_list.members
+    If you wish to send an email using the members of the distribution list, you can
+    create a list with [member.mailbox for member in distribution_list.members].
     """
     access_token = _get_app_access_token()
     account = _setup_email_account(
