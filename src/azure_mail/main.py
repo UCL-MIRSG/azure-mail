@@ -14,6 +14,7 @@ import pytz
 __all__ = [
     "create_calendar_ics",
     "create_email",
+    "create_email_list",
 ]
 
 
