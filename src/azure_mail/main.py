@@ -152,7 +152,7 @@ def create_email_list(
     # Save changes to the distribution list
     distribution_list.save()
 
-    return os.environ["AUTHOR"]
+    return account
 
 
 def create_email(
