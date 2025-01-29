@@ -4,7 +4,6 @@ import atexit
 import datetime
 import os
 import pathlib
-import pdb  # noqa: T100
 
 import dateutil.parser
 import exchangelib
