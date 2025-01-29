@@ -117,7 +117,6 @@ def create_email_list(
     )
 
     # Retrieve or create a distribution list
-    pdb.set_trace()  # noqa: T100
     dl_name = f"{limit} Mailing List"
     distribution_list = None
 
