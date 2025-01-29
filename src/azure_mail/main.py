@@ -51,23 +51,20 @@ def _get_app_access_token() -> dict:
     """
     authority = "https://login.microsoftonline.com/" + os.environ["TENANT_ID"]
     global_token_cache = _check_or_set_up_cache()
-    app = msal.ClientApplication(
+    app = msal.PublicClientApplication(
         os.environ["CLIENT_ID"],
-        client_credential=os.environ["CLIENT_SECRET"],
         authority=authority,
         token_cache=global_token_cache,
     )
 
     accounts = app.get_accounts(username=os.environ["ACCOUNT"])
-
     if accounts:
         result = app.acquire_token_silent([os.environ["SCOPE"]], account=accounts[0])
 
     else:
-        result = app.acquire_token_by_username_password(
-            os.environ["ACCOUNT"], os.environ["USER_PASSWORD"], [os.environ["SCOPE"]]
+        result = app.acquire_token_interactive(
+            [os.environ["SCOPE"]], login_hint=os.environ["ACCOUNT"]
         )
-
     if "access_token" not in result:
         message = f"Access token could not be acquired {result['error_description']}"
         raise RuntimeError(message)
@@ -104,6 +101,57 @@ def _setup_email_account(
     )
 
 
+def create_email_list(
+    limit: str,
+    recipients: list[str],
+) -> exchangelib.Message:
+    """
+    Create an email distribution list.
+
+    If you wish to send an email using the members of the distribution list, you can
+    create a list with [member.mailbox for member in distribution_list.members].
+    """
+    access_token = _get_app_access_token()
+    account = _setup_email_account(
+        access_token=access_token,
+    )
+
+    # Retrieve or create a distribution list
+    dl_name = f"{limit} Mailing List"
+    distribution_list = None
+
+    # Check if the distribution list exists
+    for contact in account.contacts.all():
+        if contact.display_name == dl_name:
+            distribution_list = contact
+            break
+
+    # If it doesn't exist, create a new one
+    if not distribution_list:
+        distribution_list = exchangelib.DistributionList(
+            display_name=dl_name, account=account, folder=account.contacts
+        )
+        distribution_list.members = []
+        distribution_list.save()
+
+    # Ensure members attribute is initialised
+    if distribution_list.members is None:
+        distribution_list.members = []
+
+    # Add members to the distribution list
+    for email_address in recipients:
+        # Create a Member object for each email
+        member = exchangelib.properties.Member(
+            mailbox=exchangelib.Mailbox(
+                email_address=email_address, mailbox_type="OneOff"
+            )  # Wrap Mailbox in Member
+        )
+        distribution_list.members.append(member)
+
+    # Save changes to the distribution list
+    distribution_list.save()
+
+
 def create_email(
     recipients: list[str],
     body: exchangelib.HTMLBody,
@@ -138,7 +186,7 @@ def create_email(
         subject=subject,
         body=body,
         to_recipients=[exchangelib.Mailbox(email_address=os.environ["AUTHOR"])],
-        bcc_recipients=recipients,
+        bcc_recipients=[recipients],
     )
 
     message.attach(
