@@ -4,6 +4,7 @@ import atexit
 import datetime
 import os
 import pathlib
+import pdb  # noqa: T100
 
 import dateutil.parser
 import exchangelib
@@ -29,6 +30,7 @@ def _check_or_set_up_cache() -> msal.SerializableTokenCache:
     """
     cache = msal.SerializableTokenCache()
     path = pathlib.Path("my_cache.bin")
+    pdb.set_trace()  # noqa: T100
     if path.exists():
         with path.open() as f:
             cache.deserialize(f.read())
