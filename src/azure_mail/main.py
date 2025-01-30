@@ -105,7 +105,7 @@ def _setup_email_account(
 def create_email_list(
     limit: str,
     recipients: list[str],
-) -> exchangelib.Message:
+) -> str:
     """
     Create an email distribution list.
 
@@ -151,6 +151,8 @@ def create_email_list(
 
     # Save changes to the distribution list
     distribution_list.save()
+
+    return account
 
 
 def create_email(
