@@ -189,7 +189,7 @@ def create_email(
         subject=subject,
         body=body,
         to_recipients=[exchangelib.Mailbox(email_address=os.environ["AUTHOR"])],
-        bcc_recipients=[recipients],
+        bcc_recipients=recipients,
     )
 
     message.attach(
