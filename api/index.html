@@ -735,9 +735,7 @@ Defaults to 0.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/azure_mail/main.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">202</span>
 <span class="normal">203</span>
 <span class="normal">204</span>
 <span class="normal">205</span>
@@ -791,7 +789,9 @@ Defaults to 0.</p>
 <span class="normal">253</span>
 <span class="normal">254</span>
 <span class="normal">255</span>
-<span class="normal">256</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_calendar_ics</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_calendar_ics</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
     <span class="n">subject</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">date</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -952,9 +952,7 @@ and recipients etc. To send the email, message.send() method can be used.
 
             <details class="quote">
               <summary>Source code in <code>src/azure_mail/main.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">158</span>
 <span class="normal">159</span>
 <span class="normal">160</span>
 <span class="normal">161</span>
@@ -993,7 +991,9 @@ and recipients etc. To send the email, message.send() method can be used.
 <span class="normal">194</span>
 <span class="normal">195</span>
 <span class="normal">196</span>
-<span class="normal">197</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_email</span><span class="p">(</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_email</span><span class="p">(</span>
     <span class="n">recipients</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
     <span class="n">body</span><span class="p">:</span> <span class="n">exchangelib</span><span class="o">.</span><span class="n">HTMLBody</span><span class="p">,</span>
     <span class="n">subject</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -1106,10 +1106,12 @@ create a list with [member.mailbox for member in distribution_list.members].</p>
 <span class="normal">150</span>
 <span class="normal">151</span>
 <span class="normal">152</span>
-<span class="normal">153</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_email_list</span><span class="p">(</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_email_list</span><span class="p">(</span>
     <span class="n">limit</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">recipients</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">exchangelib</span><span class="o">.</span><span class="n">Message</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create an email distribution list.</span>
 
@@ -1155,6 +1157,8 @@ create a list with [member.mailbox for member in distribution_list.members].</p>
 
     <span class="c1"># Save changes to the distribution list</span>
     <span class="n">distribution_list</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">account</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
