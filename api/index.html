@@ -1027,7 +1027,7 @@ and recipients etc. To send the email, message.send() method can be used.
         <span class="n">subject</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span>
         <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
         <span class="n">to_recipients</span><span class="o">=</span><span class="p">[</span><span class="n">exchangelib</span><span class="o">.</span><span class="n">Mailbox</span><span class="p">(</span><span class="n">email_address</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;AUTHOR&quot;</span><span class="p">])],</span>
-        <span class="n">bcc_recipients</span><span class="o">=</span><span class="p">[</span><span class="n">recipients</span><span class="p">],</span>
+        <span class="n">bcc_recipients</span><span class="o">=</span><span class="n">recipients</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">message</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span>
