@@ -127,16 +127,18 @@ def create_email_list(
             distribution_list = contact
             break
 
-    # Ensure members attribute is initialised
-    if distribution_list.members is None:
-        distribution_list.members = []
+    if distribution_list:
+        # Ensure members attribute is initialised
+        if distribution_list.members is None:
+            distribution_list.members = []
 
-    # Compare existing members with new recipients
-    existing_emails = (
-        {member.mailbox.email_address for member in distribution_list.members}
-        if distribution_list
-        else set()
-    )
+        # Compare existing members with new recipients
+        existing_emails = {
+            member.mailbox.email_address for member in distribution_list.members
+        }
+    else:
+        existing_emails = set()
+
     new_emails = set(recipients)
 
     if existing_emails != new_emails:
