@@ -4,6 +4,7 @@ import atexit
 import datetime
 import os
 import pathlib
+import signal
 
 import dateutil.parser
 import exchangelib
@@ -18,6 +19,14 @@ __all__ = [
 ]
 
 
+class CustomTimeoutError(Exception):
+    pass
+
+
+def timeout_handler() -> None:
+    raise CustomTimeoutError
+
+
 def _check_or_set_up_cache() -> msal.SerializableTokenCache:
     """
     Set up MSAL token cache and load existing token.
@@ -27,17 +36,26 @@ def _check_or_set_up_cache() -> msal.SerializableTokenCache:
         msal.SerializableTokenCache: Contains the access token if exists in cache.
 
     """
-    cache = msal.SerializableTokenCache()
-    path = pathlib.Path("my_cache.bin")
-    if path.exists():
-        with path.open() as f:
-            cache.deserialize(f.read())
-    atexit.register(
-        lambda: path.open("w").write(cache.serialize())
-        # Hint: The following optional line persists only when state changed
-        if cache.has_state_changed
-        else None
-    )
+    timeout = 5
+    signal.signal(signal.SIGALRM, timeout_handler)
+    signal.alarm(timeout)
+    try:
+        cache = msal.SerializableTokenCache()
+        path = pathlib.Path("my_cache.bin")
+        if path.exists():
+            with path.open() as f:
+                cache.deserialize(f.read())
+        atexit.register(
+            lambda: path.open("w").write(cache.serialize())
+            if cache.has_state_changed
+            else None
+        )
+
+    except CustomTimeoutError:
+        return None
+    finally:
+        signal.alarm(0)
+
     return cache
 
 
