@@ -4,7 +4,6 @@ import atexit
 import datetime
 import os
 import pathlib
-import signal
 
 import dateutil.parser
 import exchangelib
@@ -19,14 +18,6 @@ __all__ = [
 ]
 
 
-class CustomTimeoutError(Exception):
-    pass
-
-
-def timeout_handler() -> None:
-    raise CustomTimeoutError
-
-
 def _check_or_set_up_cache() -> msal.SerializableTokenCache:
     """
     Set up MSAL token cache and load existing token.
@@ -36,26 +27,18 @@ def _check_or_set_up_cache() -> msal.SerializableTokenCache:
         msal.SerializableTokenCache: Contains the access token if exists in cache.
 
     """
-    timeout = 5
-    signal.signal(signal.SIGALRM, timeout_handler)
-    signal.alarm(timeout)
-    try:
-        cache = msal.SerializableTokenCache()
-        path = pathlib.Path("my_cache.bin")
-        if path.exists():
-            with path.open() as f:
-                cache.deserialize(f.read())
-        atexit.register(
-            lambda: path.open("w").write(cache.serialize())
-            if cache.has_state_changed
-            else None
-        )
-        return cache  # noqa: TRY300
-
-    except CustomTimeoutError:
-        return None
-    finally:
-        signal.alarm(0)
+    cache = msal.SerializableTokenCache()
+    path = pathlib.Path("my_cache.bin")
+    if path.exists():
+        with path.open() as f:
+            cache.deserialize(f.read())
+    atexit.register(
+        lambda: path.open("w").write(cache.serialize())
+        # Hint: The following optional line persists only when state changed
+        if cache.has_state_changed
+        else None
+    )
+    return cache
 
 
 def _get_app_access_token() -> dict:
@@ -144,30 +127,31 @@ def create_email_list(
             distribution_list = contact
             break
 
-    # If it doesn't exist, create a new one
-    if not distribution_list:
-        distribution_list = exchangelib.DistributionList(
-            display_name=dl_name, account=account, folder=account.contacts
-        )
-        distribution_list.members = []
-        distribution_list.save()
-
     # Ensure members attribute is initialised
     if distribution_list.members is None:
         distribution_list.members = []
 
-    # Add members to the distribution list
-    for email_address in recipients:
-        # Create a Member object for each email
-        member = exchangelib.properties.Member(
-            mailbox=exchangelib.Mailbox(
-                email_address=email_address, mailbox_type="OneOff"
-            )  # Wrap Mailbox in Member
-        )
-        distribution_list.members.append(member)
+    # Compare existing members with new recipients
+    existing_emails = (
+        {member.mailbox.email_address for member in distribution_list.members}
+        if distribution_list
+        else set()
+    )
+    new_emails = set(recipients)
 
-    # Save changes to the distribution list
-    distribution_list.save()
+    if existing_emails != new_emails:
+        # If the distribution list doesn't exist or has changed, create/update it
+        if not distribution_list:
+            distribution_list = exchangelib.DistributionList(
+                display_name=dl_name, account=account, folder=account.contacts
+            )
+        distribution_list.members = [
+            exchangelib.properties.Member(
+                mailbox=exchangelib.Mailbox(email_address=email, mailbox_type="OneOff")
+            )
+            for email in new_emails
+        ]
+        distribution_list.save()
 
     return account
 
