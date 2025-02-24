@@ -50,13 +50,12 @@ def _check_or_set_up_cache() -> msal.SerializableTokenCache:
             if cache.has_state_changed
             else None
         )
+        return cache  # noqa: TRY300
 
     except CustomTimeoutError:
         return None
     finally:
         signal.alarm(0)
-
-    return cache
 
 
 def _get_app_access_token() -> dict:
