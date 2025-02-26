@@ -113,6 +113,8 @@ spaces_indent_inline_array = 4
 trailing_comma_inline_array = true
 overrides."project.classifiers".inline_arrays = false
 overrides."tool.coverage.paths.source".inline_arrays = false
+overrides."tool.tox.env.docs.commands".inline_arrays = false
+overrides."tool.tox.env_run_base.commands".inline_arrays = false
 
 [tool.tox]
 env_list = [
@@ -138,7 +140,7 @@ env.docs = {commands = [
     "docs",
 ]}
 gh.python = {"3.11" = [
-    "py311"
+    "py311",
 ], "3.12" = [
     "py312",
 ]}
