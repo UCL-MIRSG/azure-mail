@@ -127,30 +127,33 @@ def create_email_list(
             distribution_list = contact
             break
 
-    # If it doesn't exist, create a new one
-    if not distribution_list:
-        distribution_list = exchangelib.DistributionList(
-            display_name=dl_name, account=account, folder=account.contacts
-        )
-        distribution_list.members = []
+    if distribution_list:
+        # Ensure members attribute is initialised
+        if distribution_list.members is None:
+            distribution_list.members = []
+
+        # Compare existing members with new recipients
+        existing_emails = {
+            member.mailbox.email_address for member in distribution_list.members
+        }
+    else:
+        existing_emails = set()
+
+    new_emails = set(recipients)
+
+    if existing_emails != new_emails:
+        # If the distribution list doesn't exist or has changed, create/update it
+        if not distribution_list:
+            distribution_list = exchangelib.DistributionList(
+                display_name=dl_name, account=account, folder=account.contacts
+            )
+        distribution_list.members = [
+            exchangelib.properties.Member(
+                mailbox=exchangelib.Mailbox(email_address=email, mailbox_type="OneOff")
+            )
+            for email in new_emails
+        ]
         distribution_list.save()
-
-    # Ensure members attribute is initialised
-    if distribution_list.members is None:
-        distribution_list.members = []
-
-    # Add members to the distribution list
-    for email_address in recipients:
-        # Create a Member object for each email
-        member = exchangelib.properties.Member(
-            mailbox=exchangelib.Mailbox(
-                email_address=email_address, mailbox_type="OneOff"
-            )  # Wrap Mailbox in Member
-        )
-        distribution_list.members.append(member)
-
-    # Save changes to the distribution list
-    distribution_list.save()
 
     return account
 
