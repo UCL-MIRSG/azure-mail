@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.10">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -270,6 +270,7 @@
       <a href=".." class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Overview
     
@@ -300,6 +301,7 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
+  
   <span class="md-ellipsis">
     API reference
     
@@ -311,6 +313,7 @@
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
+  
   
   <span class="md-ellipsis">
     API reference
@@ -353,63 +356,6 @@
   
     <nav class="md-nav" aria-label="main">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#azure_mail.main._check_or_set_up_cache" class="md-nav__link">
-    <span class="md-ellipsis">
-      _check_or_set_up_cache
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="_check_or_set_up_cache">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#azure_mail.main._check_or_set_up_cache--returns" class="md-nav__link">
-    <span class="md-ellipsis">
-      Returns
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#azure_mail.main._get_app_access_token" class="md-nav__link">
-    <span class="md-ellipsis">
-      _get_app_access_token
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="_get_app_access_token">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#azure_mail.main._get_app_access_token--returns" class="md-nav__link">
-    <span class="md-ellipsis">
-      Returns
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#azure_mail.main._setup_email_account" class="md-nav__link">
-    <span class="md-ellipsis">
-      _setup_email_account
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#azure_mail.main.create_calendar_ics" class="md-nav__link">
@@ -460,6 +406,7 @@
     <li class="md-nav__item">
       <a href="../LICENSE/" class="md-nav__link">
         
+  
   
   <span class="md-ellipsis">
     License
@@ -516,63 +463,6 @@
   
     <nav class="md-nav" aria-label="main">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#azure_mail.main._check_or_set_up_cache" class="md-nav__link">
-    <span class="md-ellipsis">
-      _check_or_set_up_cache
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="_check_or_set_up_cache">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#azure_mail.main._check_or_set_up_cache--returns" class="md-nav__link">
-    <span class="md-ellipsis">
-      Returns
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#azure_mail.main._get_app_access_token" class="md-nav__link">
-    <span class="md-ellipsis">
-      _get_app_access_token
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="_get_app_access_token">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#azure_mail.main._get_app_access_token--returns" class="md-nav__link">
-    <span class="md-ellipsis">
-      Returns
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#azure_mail.main._setup_email_account" class="md-nav__link">
-    <span class="md-ellipsis">
-      _setup_email_account
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#azure_mail.main.create_calendar_ics" class="md-nav__link">
@@ -649,6 +539,7 @@
 
 
 
+
   <div class="doc doc-children">
 
 
@@ -681,6 +572,7 @@
 
 
 
+
   <div class="doc doc-children">
 
 
@@ -690,264 +582,6 @@
 
 
 
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="azure_mail.main._check_or_set_up_cache" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">_check_or_set_up_cache</span><span class="p">()</span></code>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Set up MSAL token cache and load existing token.</p>
-<h5 id="azure_mail.main._check_or_set_up_cache--returns">Returns</h5>
-<pre><code>msal.SerializableTokenCache: Contains the access token if exists in cache.
-</code></pre>
-
-            <details class="quote">
-              <summary>Source code in <code>src/azure_mail/main.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_check_or_set_up_cache</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">msal</span><span class="o">.</span><span class="n">SerializableTokenCache</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Set up MSAL token cache and load existing token.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">        msal.SerializableTokenCache: Contains the access token if exists in cache.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">cache</span> <span class="o">=</span> <span class="n">msal</span><span class="o">.</span><span class="n">SerializableTokenCache</span><span class="p">()</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;my_cache.bin&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-        <span class="k">with</span> <span class="n">path</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">cache</span><span class="o">.</span><span class="n">deserialize</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-    <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
-        <span class="k">lambda</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">cache</span><span class="o">.</span><span class="n">serialize</span><span class="p">())</span>
-        <span class="c1"># Hint: The following optional line persists only when state changed</span>
-        <span class="k">if</span> <span class="n">cache</span><span class="o">.</span><span class="n">has_state_changed</span>
-        <span class="k">else</span> <span class="kc">None</span>
-    <span class="p">)</span>
-    <span class="k">return</span> <span class="n">cache</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="azure_mail.main._get_app_access_token" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">_get_app_access_token</span><span class="p">()</span></code>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Acquire an access token for the Azure app through the MSAL library.</p>
-<h5 id="azure_mail.main._get_app_access_token--returns">Returns</h5>
-<pre><code>dict: Contains the access token within the dict.
-</code></pre>
-
-            <details class="quote">
-              <summary>Source code in <code>src/azure_mail/main.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_get_app_access_token</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Acquire an access token for the Azure app through the MSAL library.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">        dict: Contains the access token within the dict.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">authority</span> <span class="o">=</span> <span class="s2">&quot;https://login.microsoftonline.com/&quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TENANT_ID&quot;</span><span class="p">]</span>
-    <span class="n">global_token_cache</span> <span class="o">=</span> <span class="n">_check_or_set_up_cache</span><span class="p">()</span>
-    <span class="n">app</span> <span class="o">=</span> <span class="n">msal</span><span class="o">.</span><span class="n">PublicClientApplication</span><span class="p">(</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;CLIENT_ID&quot;</span><span class="p">],</span>
-        <span class="n">authority</span><span class="o">=</span><span class="n">authority</span><span class="p">,</span>
-        <span class="n">token_cache</span><span class="o">=</span><span class="n">global_token_cache</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="n">accounts</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">get_accounts</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;ACCOUNT&quot;</span><span class="p">])</span>
-    <span class="k">if</span> <span class="n">accounts</span><span class="p">:</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">acquire_token_silent</span><span class="p">([</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;SCOPE&quot;</span><span class="p">]],</span> <span class="n">account</span><span class="o">=</span><span class="n">accounts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">acquire_token_interactive</span><span class="p">(</span>
-            <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;SCOPE&quot;</span><span class="p">]],</span> <span class="n">login_hint</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;ACCOUNT&quot;</span><span class="p">]</span>
-        <span class="p">)</span>
-    <span class="k">if</span> <span class="s2">&quot;access_token&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Access token could not be acquired </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;error_description&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">result</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="azure_mail.main._setup_email_account" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">_setup_email_account</span><span class="p">(</span><span class="n">access_token</span><span class="p">)</span></code>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Use access token to configure Exchange user account using OAuth2 authorisation.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>access_token</code>
-            </td>
-            <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Contains the access token within the dict.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-        <hr />
-<pre><code>exchangelib.Account: An exchangelib account object which contains the account
-address, access_type (delegate or impersonation) and configuration for
-exchangelib to connect to the account specified.
-</code></pre>
-
-            <details class="quote">
-              <summary>Source code in <code>src/azure_mail/main.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 76</span>
-<span class="normal"> 77</span>
-<span class="normal"> 78</span>
-<span class="normal"> 79</span>
-<span class="normal"> 80</span>
-<span class="normal"> 81</span>
-<span class="normal"> 82</span>
-<span class="normal"> 83</span>
-<span class="normal"> 84</span>
-<span class="normal"> 85</span>
-<span class="normal"> 86</span>
-<span class="normal"> 87</span>
-<span class="normal"> 88</span>
-<span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
-<span class="normal"> 93</span>
-<span class="normal"> 94</span>
-<span class="normal"> 95</span>
-<span class="normal"> 96</span>
-<span class="normal"> 97</span>
-<span class="normal"> 98</span>
-<span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">_setup_email_account</span><span class="p">(</span>
-    <span class="n">access_token</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">exchangelib</span><span class="o">.</span><span class="n">Account</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Use access token to configure Exchange user account using OAuth2 authorisation.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        access_token (dict): Contains the access token within the dict.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">    -------</span>
-<span class="sd">        exchangelib.Account: An exchangelib account object which contains the account</span>
-<span class="sd">        address, access_type (delegate or impersonation) and configuration for</span>
-<span class="sd">        exchangelib to connect to the account specified.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">creds</span> <span class="o">=</span> <span class="n">exchangelib</span><span class="o">.</span><span class="n">OAuth2AuthorizationCodeCredentials</span><span class="p">(</span><span class="n">access_token</span><span class="o">=</span><span class="n">access_token</span><span class="p">)</span>
-    <span class="n">conf</span> <span class="o">=</span> <span class="n">exchangelib</span><span class="o">.</span><span class="n">Configuration</span><span class="p">(</span>
-        <span class="n">server</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;SERVER&quot;</span><span class="p">],</span> <span class="n">auth_type</span><span class="o">=</span><span class="n">exchangelib</span><span class="o">.</span><span class="n">OAUTH2</span><span class="p">,</span> <span class="n">credentials</span><span class="o">=</span><span class="n">creds</span>
-    <span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">exchangelib</span><span class="o">.</span><span class="n">Account</span><span class="p">(</span>
-        <span class="n">primary_smtp_address</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;ACCOUNT&quot;</span><span class="p">],</span>
-        <span class="n">access_type</span><span class="o">=</span><span class="n">exchangelib</span><span class="o">.</span><span class="n">DELEGATE</span><span class="p">,</span>
-        <span class="n">config</span><span class="o">=</span><span class="n">conf</span><span class="p">,</span>
-        <span class="n">autodiscover</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
 
 <div class="doc doc-object doc-function">
 
@@ -1109,6 +743,7 @@ Defaults to 0.</p>
         <hr />
 <pre><code>exchangelib.FileAttachment: ICS file attachment for the event.
 </code></pre>
+
 
             <details class="quote">
               <summary>Source code in <code>src/azure_mail/main.py</code></summary>
@@ -1327,6 +962,7 @@ Defaults to 0.</p>
 and recipients etc. To send the email, message.send() method can be used.
 </code></pre>
 
+
             <details class="quote">
               <summary>Source code in <code>src/azure_mail/main.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">161</span>
@@ -1432,6 +1068,7 @@ and recipients etc. To send the email, message.send() method can be used.
         <p>Create an email distribution list.</p>
 <p>If you wish to send an email using the members of the distribution list, you can
 create a list with [member.mailbox for member in distribution_list.members].</p>
+
 
             <details class="quote">
               <summary>Source code in <code>src/azure_mail/main.py</code></summary>
@@ -1627,7 +1264,9 @@ create a list with [member.mailbox for member in distribution_list.members].</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["content.action.edit"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
