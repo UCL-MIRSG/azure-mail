@@ -73,7 +73,7 @@ def _get_app_access_token() -> dict:
         with concurrent.futures.ThreadPoolExecutor() as executor:
             future = executor.submit(interactive_auth)
             try:
-                result = future.result(timeout=60)  # Timeout set to 60 seconds
+                result = future.result(timeout=1)  # Timeout set to 60 seconds
             except concurrent.futures.TimeoutError as err:
                 msg = "Interactive authentication timed out."
                 raise RuntimeError(msg) from err
