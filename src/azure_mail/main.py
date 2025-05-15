@@ -42,12 +42,6 @@ def _check_or_set_up_cache() -> msal.SerializableTokenCache:
     return cache
 
 
-def interactive_auth(app: msal.PublicClientApplication) -> dict:
-    return app.acquire_token_interactive(
-        [os.environ["SCOPE"]], login_hint=os.environ["ACCOUNT"]
-    )
-
-
 def _get_app_access_token() -> dict:
     """
     Acquire an access token for the Azure app through the MSAL library.
@@ -70,10 +64,16 @@ def _get_app_access_token() -> dict:
         result = app.acquire_token_silent([os.environ["SCOPE"]], account=accounts[0])
 
     else:
+        # Add a timeout for acquire_token_interactive
+        def interactive_auth() -> dict:
+            return app.acquire_token_interactive(
+                [os.environ["SCOPE"]], login_hint=os.environ["ACCOUNT"]
+            )
+
         with concurrent.futures.ThreadPoolExecutor() as executor:
-            future = executor.submit(interactive_auth(app))
+            future = executor.submit(interactive_auth)
             try:
-                result = future.result(timeout=10)  # Timeout set to 60 seconds
+                result = future.result(timeout=60)  # Timeout set to 60 seconds
             except concurrent.futures.TimeoutError as err:
                 msg = "Interactive authentication timed out."
                 raise RuntimeError(msg) from err
