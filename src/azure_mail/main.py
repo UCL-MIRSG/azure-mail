@@ -5,6 +5,7 @@ import concurrent.futures
 import datetime
 import os
 import pathlib
+from asyncio import sleep
 
 import dateutil.parser
 import exchangelib
@@ -52,6 +53,20 @@ def _get_app_access_token() -> dict:
 
     """
     authority = "https://login.microsoftonline.com/" + os.environ["TENANT_ID"]
+
+    def check_timeout() -> bool:
+        sleep(20)
+        return True
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        future = executor.submit(check_timeout)
+        try:
+            hello = future.result(timeout=10)
+        except concurrent.futures.TimeoutError as err:
+            msg = "Token cache check timed out."
+            raise RuntimeError(msg) from err
+
+    return hello
 
     def check_cache() -> msal.SerializableTokenCache:
         """
