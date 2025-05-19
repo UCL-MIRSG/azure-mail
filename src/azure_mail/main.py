@@ -155,7 +155,7 @@ def create_email_list(
     If you wish to send an email using the members of the distribution list, you can
     create a list with [member.mailbox for member in distribution_list.members].
     """
-    access_token = _get_app_access_token()
+    access_token = None
     account = _setup_email_account(
         access_token=access_token,
     )
