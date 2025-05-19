@@ -53,11 +53,21 @@ def _get_app_access_token() -> dict:
     """
     authority = "https://login.microsoftonline.com/" + os.environ["TENANT_ID"]
     global_token_cache = _check_or_set_up_cache()
-    app = msal.PublicClientApplication(
-        os.environ["CLIENT_ID"],
-        authority=authority,
-        token_cache=global_token_cache,
-    )
+
+    def initialize_app() -> msal.PublicClientApplication:
+        return msal.PublicClientApplication(
+            os.environ["CLIENT_ID"],
+            authority=authority,
+            token_cache=global_token_cache,
+        )
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        future = executor.submit(initialize_app)
+        try:
+            app = future.result(timeout=10)
+        except TimeoutError as err:
+            msg = "Initialization of PublicClientApplication timed out."
+            raise RuntimeError(msg) from err
 
     accounts = app.get_accounts(username=os.environ["ACCOUNT"])
     if accounts:
