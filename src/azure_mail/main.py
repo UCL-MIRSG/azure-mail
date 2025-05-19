@@ -64,7 +64,7 @@ def _get_app_access_token() -> dict:
     with concurrent.futures.ThreadPoolExecutor() as executor:
         future = executor.submit(initialize_app)
         try:
-            app = future.result(timeout=0.1)
+            app = future.result(timeout=0.0000000000000000001)
         except TimeoutError as err:
             msg = "Initialization of PublicClientApplication timed out."
             raise RuntimeError(msg) from err
