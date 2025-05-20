@@ -42,6 +42,16 @@ def _check_or_set_up_cache() -> msal.SerializableTokenCache:
     return cache
 
 
+def initialise_app(
+    client_id: str, authority: str, token_cache: msal.SerializableTokenCache
+) -> msal.PublicClientApplication:
+    return msal.PublicClientApplication(
+        client_id,
+        authority=authority,
+        token_cache=token_cache,
+    )
+
+
 def _get_app_access_token() -> dict:
     """
     Acquire an access token for the Azure app through the MSAL library.
@@ -67,15 +77,13 @@ def _get_app_access_token() -> dict:
             msg = "Token cache check timed out."
             raise RuntimeError(msg) from err
 
-    def initialise_app() -> msal.PublicClientApplication:
-        return msal.PublicClientApplication(
-            os.environ["CLIENT_ID"],
-            authority=authority,
-            token_cache=global_token_cache,
-        )
-
     with ProcessPoolExecutor() as executor:
-        future = executor.submit(initialise_app)
+        future = executor.submit(
+            initialise_app,
+            os.environ["CLIENT_ID"],
+            authority,
+            global_token_cache,
+        )
         try:
             app = future.result(timeout=10)
         except ProcessPoolExecutor as err:
