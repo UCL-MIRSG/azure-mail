@@ -1,10 +1,10 @@
 """Create an email to send with an Azure app."""
 
 import atexit
-import concurrent.futures
 import datetime
 import os
 import pathlib
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 
 import dateutil.parser
 import exchangelib
@@ -54,40 +54,32 @@ def _get_app_access_token() -> dict:
     authority = "https://login.microsoftonline.com/" + os.environ["TENANT_ID"]
 
     def check_cache() -> msal.SerializableTokenCache:
-        """
-        Check if the token cache is set up correctly.
-
-        Returns
-        -------
-            msal.SerializableTokenCache: Contains the access token if exists in cache.
-
-        """
         global_token_cache = _check_or_set_up_cache()
         if not global_token_cache.has_state_changed:
             return global_token_cache
         return None
 
-    with concurrent.futures.ThreadPoolExecutor() as executor:
+    with ThreadPoolExecutor() as executor:
         future = executor.submit(check_cache)
         try:
             global_token_cache = future.result(timeout=10)
-        except concurrent.futures.TimeoutError as err:
+        except ThreadPoolExecutor as err:
             msg = "Token cache check timed out."
             raise RuntimeError(msg) from err
 
-    def initialize_app() -> msal.PublicClientApplication:
+    def initialise_app() -> msal.PublicClientApplication:
         return msal.PublicClientApplication(
             os.environ["CLIENT_ID"],
             authority=authority,
             token_cache=global_token_cache,
         )
 
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        future = executor.submit(initialize_app)
+    with ProcessPoolExecutor() as executor:
+        future = executor.submit(initialise_app)
         try:
             app = future.result(timeout=10)
-        except TimeoutError as err:
-            msg = "Initialization of PublicClientApplication timed out."
+        except ProcessPoolExecutor as err:
+            msg = "Initialisation of PublicClientApplication timed out."
             raise RuntimeError(msg) from err
 
     accounts = app.get_accounts(username=os.environ["ACCOUNT"])
@@ -101,11 +93,11 @@ def _get_app_access_token() -> dict:
                 [os.environ["SCOPE"]], login_hint=os.environ["ACCOUNT"]
             )
 
-        with concurrent.futures.ThreadPoolExecutor() as executor:
+        with ThreadPoolExecutor() as executor:
             future = executor.submit(interactive_auth)
             try:
                 result = future.result(timeout=10)  # Timeout set to 10 seconds
-            except concurrent.futures.TimeoutError as err:
+            except ThreadPoolExecutor as err:
                 msg = "Interactive authentication timed out."
                 raise RuntimeError(msg) from err
 
