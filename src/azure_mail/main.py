@@ -150,7 +150,7 @@ def _setup_email_account(
 def get_token_with_timeout(timeout: int) -> dict:
     try:
         # Ensure the arguments are trusted and not user-supplied
-        script_path = pathlib.Path.resolve("get_token.py")
+        script_path = pathlib.Path("get_token.py").resolve()
         if not pathlib.Path.is_file(script_path):
             message = f"Script not found: {script_path}"
             raise RuntimeError(message)
