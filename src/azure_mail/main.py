@@ -6,6 +6,7 @@ import json
 import os
 import pathlib
 import subprocess
+import sys
 from concurrent.futures import ThreadPoolExecutor
 
 import dateutil.parser
@@ -157,6 +158,7 @@ def get_token_with_timeout(timeout: int) -> dict:
         if result.returncode != 0:
             message = f"Token script failed: {result.stderr}"
             raise RuntimeError(message)
+        print("DEBUG: result.stdout =", repr(result.stdout), file=sys.stderr)  # noqa: T201
         return json.loads(result.stdout)
     except subprocess.TimeoutExpired as err:
         message = "Token acquisition timed out."
