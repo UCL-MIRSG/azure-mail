@@ -79,18 +79,11 @@ def _get_app_access_token() -> dict:
             msg = "Token cache check timed out."
             raise RuntimeError(msg) from err
 
-    with ThreadPoolExecutor() as executor:
-        future = executor.submit(
-            initialise_app,
-            os.environ["CLIENT_ID"],
-            authority,
-            global_token_cache,
-        )
-        try:
-            app = future.result(timeout=10)
-        except ThreadPoolExecutor as err:
-            msg = "Initialisation of PublicClientApplication timed out."
-            raise RuntimeError(msg) from err
+    app = initialise_app(
+        os.environ["CLIENT_ID"],
+        authority,
+        global_token_cache,
+    )
 
     accounts = app.get_accounts(username=os.environ["ACCOUNT"])
     if accounts:
