@@ -149,13 +149,13 @@ def _setup_email_account(
 
 def get_token_with_timeout(timeout: int) -> dict:
     try:
-        # Ensure the arguments are trusted and not user-supplied
-        script_path = pathlib.Path("get_token.py").resolve()
-        if not pathlib.Path.is_file(script_path):
+        # Find get_token.py in the same directory as this file
+        script_path = (pathlib.Path(__file__).parent / "get_token.py").resolve()
+        if not script_path.is_file():
             message = f"Script not found: {script_path}"
             raise RuntimeError(message)
         result = subprocess.run(  # noqa: S603
-            [os.sys.executable, script_path],
+            [os.sys.executable, str(script_path)],
             capture_output=True,
             text=True,
             timeout=timeout,
