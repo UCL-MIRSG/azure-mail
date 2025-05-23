@@ -2,8 +2,10 @@
 
 import atexit
 import datetime
+import json
 import os
 import pathlib
+import subprocess
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 
 import dateutil.parser
@@ -145,6 +147,29 @@ def _setup_email_account(
     )
 
 
+def get_token_with_timeout(timeout: int) -> dict:
+    try:
+        # Ensure the arguments are trusted and not user-supplied
+        script_path = pathlib.Path.resolve("get_token.py")
+        if not pathlib.Path.is_file(script_path):
+            message = f"Script not found: {script_path}"
+            raise RuntimeError(message)
+        result = subprocess.run(  # noqa: S603
+            [os.sys.executable, script_path],
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            check=False,
+        )
+        if result.returncode != 0:
+            message = f"Token script failed: {result.stderr}"
+            raise RuntimeError(message)
+        return json.loads(result.stdout)
+    except subprocess.TimeoutExpired as err:
+        message = "Token acquisition timed out."
+        raise RuntimeError(message) from err
+
+
 def create_email_list(
     limit: str,
     recipients: list[str],
@@ -155,7 +180,8 @@ def create_email_list(
     If you wish to send an email using the members of the distribution list, you can
     create a list with [member.mailbox for member in distribution_list.members].
     """
-    access_token = _get_app_access_token()
+    access_token = get_token_with_timeout(timeout=10)
+
     account = _setup_email_account(
         access_token=access_token,
     )
