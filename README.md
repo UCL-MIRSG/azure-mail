@@ -73,7 +73,6 @@ Centre for Advanced Research Computing, University College London
    ```
 
    Here's a brief explanation of each line above:
-
    - `layout python`: required for `direnv` to export the environment variables
    - `CLIENT_ID`:
      [ID of the app](https://learn.microsoft.com/en-us/entra/identity-platform/msal-client-application-configuration#client-id)
