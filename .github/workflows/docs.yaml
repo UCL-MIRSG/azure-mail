@@ -10,7 +10,7 @@ on:
 jobs:
   docs:
     permissions:
-      contents: read
+      contents: write
     runs-on: ubuntu-slim
     steps:
       - name: Checkout source
