@@ -8,9 +8,11 @@ on:
 
 jobs:
   add-issue-to-project:
-    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    runs-on: ubuntu-slim
     steps:
       - uses: UCL-MIRSG/.github/actions/add-to-project@48c110143818699bc1aeee69a6296d00550fd950 # v0
         with:
-          app-id: ${{ secrets.APP_ID }}
-          app-pem: ${{ secrets.APP_PEM }}
+          app-id: ${{ secrets.APP_ID }} # zizmor: ignore[secrets-outside-env]
+          app-pem: ${{ secrets.APP_PEM }} # zizmor: ignore[secrets-outside-env]
