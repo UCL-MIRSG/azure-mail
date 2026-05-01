@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 2
     steps:
       - name: Check links
-        uses: UCL-MIRSG/.github/actions/links@48c110143818699bc1aeee69a6296d00550fd950 # v0
+        uses: UCL-MIRSG/.github/actions/links@607b60294896f16c5ea3c37cdf5092a0021b56d4 # v0
         with:
           app-id: ${{ vars.LINKS_APP_ID }}
           app-pem: ${{ secrets.LINKS_PRIVATE_KEY }} # zizmor: ignore[secrets-outside-env]
