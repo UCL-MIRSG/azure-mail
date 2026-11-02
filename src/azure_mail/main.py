@@ -34,10 +34,12 @@ def _check_or_set_up_cache() -> msal.SerializableTokenCache:
         with path.open() as f:
             cache.deserialize(f.read())
     atexit.register(
-        lambda: path.open("w").write(cache.serialize())
-        # Hint: The following optional line persists only when state changed
-        if cache.has_state_changed
-        else None
+        lambda: (
+            path.open("w").write(cache.serialize())
+            # Hint: The following optional line persists only when state changed
+            if cache.has_state_changed
+            else None
+        )
     )
     return cache
 
@@ -214,7 +216,7 @@ def create_email(
     return message
 
 
-def create_calendar_ics(  # noqa: PLR0913
+def create_calendar_ics(  # noqa: PLR0913, PLR0917
     subject: str,
     description: str,
     date: str,
